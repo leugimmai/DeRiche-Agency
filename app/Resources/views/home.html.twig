@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <h2>Welcome, <b>{{ app.user.firstName }}</b></h2>
+        <hr/>
+    {% endif %}
+
+
+    <p>Thank you for logging in, use the sidebar for what you need!</p>
+{% endblock %}

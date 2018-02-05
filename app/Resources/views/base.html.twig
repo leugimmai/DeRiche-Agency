@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Home | Dashboard{% endblock %}</title>
+
+    {% block stylesheets %}{% endblock %}
+
+    <link rel="stylesheet" href="{{ asset('static/bootstrap-4.0.0-beta/css/bootstrap.min.css') }}">
+    {% if app.request.cookies.has('theme') %}
+        {% if app.request.cookies.get('theme') starts with 'default' %}
+            <link rel="stylesheet" href="{{ asset('style.css') }}">
+        {% else %}
+            <link rel="stylesheet" href="{{ asset('style-' ~ app.request.cookies.get('theme') ~ '.css') }}">
+        {% endif %}
+    {% else %}
+        <link rel="stylesheet" href="{{ asset('style.css') }}">
+    {% endif %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+
+    <link rel="preload" as="script" href="{{ asset('static/jquery/jquery-3.2.1.min.js') }}">
+    <script src="{{ asset('static/jquery/js.cookie.min.js')}}"></script>
+    <link rel="preload" as="script" href="{{ asset('static/popper.js') }}">
+    <link rel="preload" as="script" href="{{ asset('static/bootstrap-4.0.0-beta/js/bootstrap.min.js') }}">
+    <link rel="preload" as="script" href="{{ asset('static/tether.min.js') }}">
+    <link rel="preload" as="script" href="{{ asset('static/underscore/underscore-min.js') }}">
+</head>
+<body>
+<div class="container-fluid" id="wrapper">
+    <header>
+        <h1 id="logo" class="logo">DeRiche Agency, Inc.</h1>
+    </header>
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav flex-column nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+
+                {% if is_granted('ROLE_WRITER') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('note') }}">Create Note</a>
+                    </li>
+                {% endif %}
+
+                {% if is_granted('ROLE_REVIEWER') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('reviewer') }}">Review Notes</a>
+                    </li>
+                {% endif %}
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin') }}">Admin Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('audit') }}">Auditing Tools</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('individuals') }}">Individuals</a>
+                    </li>
+                {% endif %}
+
+                {#<li class="nav-item">#}
+                {#<a class="nav-link" href="/formretrieval">Retrieve Form</a>#}
+                {#</li>#}
+                {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('logout') }}">Log Out</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('Login Form') }}">Log In</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="col-md-9">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal fade" id="confirmModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmation Dialog</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <br/>
+                    <div class="alert alert-warning" role="alert">
+                        {#<strong>Confirmation: </strong>#}
+                        <span class="warning-message">
+                            Are you sure you wish to do that?
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-warning confirm">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ asset('static/jquery/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('static/popper.js') }}"></script>
+    <script src="{{ asset('static/bootstrap-4.0.0-beta/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('static/tether.min.js') }}"></script>
+    <script src="{{ asset('static/underscore/underscore-min.js') }}"></script>
+
+    <script>
+        // Used for navigation menu.
+        $(function () {
+            if ((location.pathname.split("/")[1]) === "") {
+                $("a.nav-link:contains('Home')").addClass('active');
+            } else {
+                var activenav = $('ul.nav a[href^="/' + location.pathname.split("/")[1] + '"]');
+                activenav.addClass('active');
+                // If we're on a form page then we set the "Create Form" element to active as well.
+                if (activenav.parent().attr('id') == "formsdropdown")
+                    $("#createform").addClass('active');
+            }
+        });
+    </script>
+    <script><!--Modal-->
+        //When clicked
+        $('.confirm-link').on('click', function (e) {
+            //e.preventDefault();
+
+            //Pass data to shown handler
+            var link = $(this).data('link');
+            var confirmTitle = $(this).data('confirm-title');
+            var confirmMessage = $(this).data('confirm-message');
+            var bootstrapColor = $(this).data('bootstrap-color');
+
+            var modal = $('#confirmModal');
+
+            modal.find('.modal-title').html(confirmTitle);
+            modal.find('.warning-message').html(confirmMessage);
+            modal.find('.confirm').attr('class', 'btn confirm  btn-' + bootstrapColor).html(confirmTitle);
+            modal.find('.alert.alert-warning').attr('class', 'alert alert-' + bootstrapColor);
+
+            modal.data({
+                'type': 'link',
+                'link': link
+            }).modal('show');
+        });
+
+        $('#confirmModal .confirm').click(function () {
+            var type = $('#confirmModal').data('type');
+
+            switch (type) {
+                // handle redirect here
+                case 'link': {
+                    var link = $('#confirmModal').data('link');
+                    location.href = link;
+                    $('#confirmModal').modal('hide');
+                }
+                case 'delete': {
+
+                }
+            }
+        });
+
+    </script>
+    {% block javascripts %}{% endblock %}
+    <footer>
+        Copyright &copy; 2017
+        <span class="badge badge-danger">Syed A.</span>
+        <span class="badge badge-danger">Samuel Seidel</span>
+        <span class="badge badge-warning">Ryan Garner</span>
+        <span class="badge badge-warning">Greg S.</span>
+
+        <br/>
+
+        Development Support: <a href="mailto:samuel@samistine.com">samuel@samistine.com</a>
+        <a href="tel:678-576-7222">678-576-7222</a><br/>
+        <a href="https://www.youtube.com/playlist?list=PLBu3cncVJ8THV69ApJscHmhCorQJpyUC1" target="_blank">Help -
+            YouTube Playlist</a>
+    </footer>
+</div>
+<div class="row">
+    <div class="col-md-2" style="margin-left: 27px;"></div>
+    <div style="width: 3.3%; background-color:#FFFFFF;">
+        <span class="color-pick" id="default-theme"></span>
+        <span class="color-pick" id="blue-theme"></span>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $(".color-pick").click(function () {
+            var colorName = $(this).attr('id');
+            Cookies.remove('theme');
+            Cookies.set("theme", colorName);
+            location.reload();
+        });
+    });
+</script>
+</body>
+</html>

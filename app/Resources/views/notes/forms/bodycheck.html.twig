@@ -1,0 +1,96 @@
+{% extends 'notes/forms/template.html.twig' %}
+{% block title %}Body Check Form{% endblock %}
+{% block form %}
+    <div class="card" style="background-color: inherit">
+        <div class="card-header">
+            <h3 class="text-center">Body Canvas</h3>
+        </div>
+        <div class="card-body">
+            <div class="drawing-block text-center">
+                <canvas data-background="{{ asset('check.png') }}" class="canvas-bodyCheck"></canvas>
+                <input name="form_body_canvas" hidden/>
+                <br/>
+                <button type="button">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="form-group row">
+        <label for="type" class="col-md-3 col-form-label">If yes, which type?</label>
+        <div class="col-md-8">
+            <textarea id="type" name="form_type" class="form-control" required></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="what" class="col-md-3 col-form-label">Explain what happened</label>
+        <div class="col-md-8">
+            <textarea id="what" name="form_what" class="form-control" required></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="where" class="col-md-3 col-form-label">Where did it happen</label>
+        <div class="col-md-8">
+            <textarea id="where" name="form_where" class="form-control" required></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="when" class="col-md-3 col-form-label">When did it happen</label>
+        <div class="col-md-8">
+            <textarea id="when" name="form_when" class="form-control" required></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="why" class="col-md-3 col-form-label">Why did it happen</label>
+        <div class="col-md-8">
+            <textarea id="why" name="form_why" class="form-control" required></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="firstAid" class="col-md-3 col-form-label">
+            What did you do?
+        </label>
+        <div class="col-md-8">
+            <textarea id="firstAid" name="form_firstAid" class="form-control" required></textarea>
+            <small class="form-text text-muted">Describe First Aid administered and follow up</small>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="form-group row">
+        <label for="recommend" class="col-md-3 col-form-label">Recommendations for follow up</label>
+        <div class="col-md-8">
+            <textarea id="recommend" name="form_recommend" class="form-control"></textarea>
+        </div>
+    </div>
+
+    <br><br>
+    <button onclick="myFunction()" type="button">Help</button>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // TODO: Replace this with modal.
+        function myFunction() {
+            alert(
+                "1.Mark on the chart below any abnormities observed\n" +
+                "2.Enter Participant name in the field provided (First name and last name) \n" +
+                "3.In the Explain what happened section, please type out how Participant received any abnormalities\n" +
+                "4.In the Where / When section, please type out Where & When Participant received any abnormalities\n" +
+                "5.In the What did you do? Describe First Aid administered and follow up section, please type out exactly what First Aid was administered and what steps were taken to follow up\n" +
+                "6.In the Recommendations for follow up section, only if you are an Admin, please type in any recommendations you have for the participant\n" +
+                "7.Enter your name in the field provided\n" +
+                "8.Sign the signature box with the mouse\n" +
+                "11.Select date from the Date Picker\n"
+            );
+        }
+    </script>
+{% endblock %}

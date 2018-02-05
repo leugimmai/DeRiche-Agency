@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section id="form-template">
+        <h2 style="font-size:33px">{{ block('title') }}</h2>
+        <hr/>
+
+        <form action="/form/{{ note.uuid }}/submit/{{ type }}" method="post">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">Date & Time</label>
+                <div class="col-md-4">
+                    <input name="form_date" class="form-control" type="date" value="{{ date()|date("Y-m-d") }}">
+                    <small class="form-text text-muted">Month/Day/Year</small>
+                </div>
+                <div class="col-md-4">
+                    <input name="form_time" id="form_time" class="form-control" type="time">
+                    <small id="form_date" class="form-text text-muted">Time</small>
+                </div>
+            </div>
+
+            {% block form %}{% endblock %}
+
+            <div class="drawing-block">
+                <canvas id="signature" data-background="{{ asset('sigImg.png') }}"></canvas>
+                <input type="hidden" name="form_signature_canvas">
+                <br/>
+                <button type="button" class="signature-clear">Clear Signature</button>
+            </div>
+
+            <br/>
+
+            <input id="Submit" type="submit" value="Submit"/>
+        </form>
+
+    </section>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .canvas-bodyCheck {
+            width: 673px;
+            height: 514px;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('jquery.jqscribble.js') }}"></script>
+    <script>
+        {% if data %}
+        var creatingNew = false;
+        {% else %}
+        var creatingNew = true;
+        {% endif %};
+
+        String.prototype.endsWith = function (suffix) {
+            return this.indexOf(suffix, this.length - suffix.length) !== -1;
+        };
+
+        var signatureCanvas = $("#signature");
+        var signatureDataField = $('#sigData');
+
+        function clearSignatureCanvas() {
+            // signatureCanvas.data("jqScribble").clear();
+            //signatureCanvas.data("jqScribble").update({backgroundImage: "{{ asset('sigImg.png') }}"});
+        }
+
+        $('.drawing-block').each(function (e) {
+            var block = $(this);
+            try {
+                var canvas = block.find('canvas');
+                var input = block.find('input:hidden');
+                var clear = block.find('button');
+
+                //Init jsScribble
+                if (creatingNew && canvas.attr('data-background') !== "undefined") {
+                    canvas.jqScribble({backgroundImage: canvas.attr('data-background')});
+                } else {
+                    canvas.jqScribble()
+                }
+
+                var clearCanvasFunction = function () {
+                    console.log('Canvas', "Clearing " + canvas.get(0).id);
+                    canvas.data("jqScribble").clear();
+
+                    //Set background image
+                    if (canvas.attr('data-background') !== "undefined") {
+                        canvas.data("jqScribble").update({backgroundImage: canvas.attr('data-background')});
+                    }
+                };
+
+                //Set clear handler.
+                clear.click(clearCanvasFunction);
+
+                //save canvas on submit
+                block.closest('form').submit(function () {
+                    console.log(block);
+                    input.val(
+                        canvas.get(0).toDataURL()
+                    );
+                    return true;
+                });
+            } catch (ex) {
+                console.log('Drawing Canvas Error', ex);
+            }
+        });
+
+        $(document).ready(function () {
+            //make all form entries required
+            //This **** up javascripts ability to set variable values on form submission
+            // $('*[name^="form"]').prop('required', true);
+
+            //load existing data into forms for viewing and lock from editing
+            {% if data %}
+            // If there is data, that means we're viewing it so we can make some changes to the template.
+            var data = {{ data|json_encode()|raw }};
+            // Hide the Submit/Clear button and turn all inputs to disabled within the form.
+            $('input:submit, input[type="reset"], button[type="help"], button[type="clear"]').hide();
+            // Iterate over array and fill inputs as needed.
+            $.each(data, function (key, value) {
+                var input = $('*[name="' + key + '"]');
+
+                if (key.endsWith('_canvas')) {
+                    var block = input.closest('.drawing-block');
+
+                    //Lock reset
+                    block.find('button').prop('disabled', true);
+                    block.find('button').remove();
+
+                    //Disable Editing
+                    block.find('canvas').css('pointer-events', 'none');
+
+                    //Set canvas
+                    block.find('canvas').data('jqScribble').update({
+                        backgroundImage: value
+                    });
+                }
+
+                input
+                    .val(value)
+                    .attr('disabled', 'disabled');
+            });
+            {% endif %}
+        });
+    </script>
+{% endblock %}

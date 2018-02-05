@@ -1,0 +1,81 @@
+header, main, footer, aside {
+    display: block;
+}
+
+body {
+    background-color: #330000;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+#wrapper {
+    width: 1200px;
+    margin: auto;
+    background-color: #F4E8BC;
+    color: #330000;
+    box-shadow: 5px 5px 5px #000000;
+}
+
+h1#logo {
+    color: #330000;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 75px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    line-height: 1;
+    text-align: center;
+    padding-bottom: 25px;
+    padding-top: 25px;
+    box-shadow: 0 1px 0 rgba(12, 13, 14, 0.1), 0 1px 3px rgba(12, 13, 14, 0.1), 0 4px 20px rgba(12, 13, 14, 0.035), 0 1px 1px rgba(12, 13, 14, 0.025);
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+main {
+    background-color: #FFFFCC;
+    margin-left: 200px;
+    padding: 1px 20px 20px 20px;
+    min-height: 300px;
+}
+
+main img {
+    float: right;
+    padding: 20px;
+}
+
+footer {
+    /*background-color: #FFFFCC;*/
+    /*margin-left: 200px;*/
+    padding: 20px;
+    text-align: center;
+    font-size: small;
+    font-style: italic;
+}
+
+canvas#signature, .signature {
+    /*width: 635px;*/
+    width: 631px;
+    height: 149px;
+    margin-top: 8px;
+    border: 2px solid;
+}
+
+.signature-clear, .clear {
+    top: 180px; background: white; border: 2px solid;
+}
+
+.color-pick {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    cursor: pointer;
+}
+
+#default-theme {
+    background: #330000;
+}
+
+#blue-theme {
+    background: #004e92;
+}

@@ -1,0 +1,33 @@
+{% extends 'notes/forms/template.html.twig' %}
+
+{% block title %}Bowel Movement Daily Checklist{% endblock %}
+
+{% block form %}
+
+    <div class="form-group row">
+        <label for="movement" class="col-md-3 col-form-label">Bowel Movement</label>
+        <div class="col-md-4">
+            <select id="movement" name="form_movement" class="form-control" name="date">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="type" class="col-md-3 col-form-label">If yes, which type?</label>
+        <div class="col-md-4">
+            <textarea id="type" name="form_type" class="form-control"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="familyCaregiverInformedName" class="col-md-3 col-form-label">Family Caregiver Informed</label>
+        <div class="col-md-6">
+            <input type="text" id="familyCaregiverInformedName" name="form_familyCaregiverInformedName"
+                   class="form-control">
+            <small class="form-text text-muted">The full name of the family's caretaker you informed.</small>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block title %}Retrieve a Form{% endblock %}
+{% block body %}
+    <h2>Form Retrieval</h2>
+    <div style="margin-bottom: 50px; width: 800px;">
+        <form name="retrieveForm" id="retrieveForm" action="RetrieveServlet" method="post">
+            <table id="myTable" cellspacing="0" cellpadding="1" border="1">
+                <tr>
+                    <th>Date</th>
+                    <th>Form ID</th>
+                    <th>Form Type</th>
+                </tr>
+            </table>
+    </div>
+    <label for="id">Form ID:</label>
+    <input type="text" name="fomrId" id="formID" required="required">
+    <input type="submit" name="submitBtn" id="submitBtn" value="Retrieve Form">
+    </form>
+{% endblock %}

@@ -1,0 +1,329 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row" style="margin-bottom: -15px;">
+        <div class="form-group col-sm-10">
+            <strong>Participant Name</strong><br/>
+            {{ individual.firstname }} {{ individual.lastname }}<br/>
+        </div>
+        <div class="col-sm-2">
+            <strong>Month/Year</strong>
+            {{ note.createdAt|date("m/Y") }}
+        </div>
+    </div>
+    <hr/>
+    <input id="note_id" value="{{ note.uuid }}" style="display: none;"/>
+    {% if note.comment %}
+        <div class="alert alert-warning" role="alert">
+            <strong>Comment:</strong> {{ note.comment }}
+        </div>
+    {% endif %}
+    <div class="alert alert-warning" role="alert" id="seizurewarn" style="display: none;">
+        <strong>Form Missing:</strong> Please add the seizure activity checklist form or change the value.
+    </div>
+    <div class="alert alert-warning" role="alert" id="bowelwarn" style="display: none;">
+        <strong>Form Missing:</strong> Please add the bowel activity form or change the value.
+    </div>
+    <div class="card">
+        <h3 class="card-header">Forms</h3>
+        <div class="card-block row">
+            <div class="dropdown col-6 col-sm-3">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="formbutton"
+                        data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="true" aria-expanded="false" id="createform"
+                        style="margin: 5px;">
+                    Create Form
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for key,value in form_types %}
+                        <a class="dropdown-item" href="/form/{{ note.uuid }}/create/{{ key }}">{{ value }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-6 col-sm-5">
+                {% for form in note.forms %}
+                    <div>
+                        <a href="/form/view/{{ form.id }}"><span>{{ form.type|readable_enum }}</span></a>
+                        <a href="/form/delete/{{ form.id }}" type="button" class="btn btn-danger">&times;</a>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {{ form_start(form, { 'attr': {'class': 'container form', 'id': 'noteform'} }) }}
+    <div class="row">
+        <div class="form-group col-sm-8">
+            <label for="form_content" class="required">Progress notes are to include any daily activities, behavior
+                issues, appointments and progress toward goals.</label>
+            {{ form_errors(form.content) }}
+            {% if note.content is not null %}
+                {{ form_widget(form.content, { 'attr': {'class': 'form-control'},
+                    'value': note.content}) }}
+            {% else %}
+                {{ form_widget(form.content, { 'attr': {'class': 'form-control'},
+                    'value': note.createdAt|date("(m/d/Y)") ~ " " ~ individual.firstname ~ " "}) }}
+            {% endif %}
+            {{ form_widget(form.signature) }}
+            {% if note.individual.seizure %}
+                <label style="margin-top:5px;" for="seizure" class="required">Seizures:</label>
+                <select id="seizure" name="seizure" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                    <option value="possible">Possible</option>
+                </select><br/>
+            {% endif %}
+            {% if note.individual.bowel %}
+                <label style="margin-top:5px;" for="bowel" class="required">Bowel Movements (that need to be
+                    tracked):</label>
+                <select id="bowel" name="bowel" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            {% endif %}
+        </div>
+        <div class="col-sm-4" style="padding-top: 50px;">
+            {#<button type="button" style="margin-bottom: 10px;" onclick="showObjectives()">#}
+            {#reload#}
+            {#</button>#}
+            {% if "/Day" in objectives|keys %}
+                <h4>Daily Objectives</h4>
+                <div style="border-style: solid;border-width: small; padding:5px;margin-bottom:3px;">
+                    {% for objective in objectives["/Day"] %}
+                        <p style="margin-bottom:2px;">{{ objective.name }} - {{ objective.goaltext }}</p>
+                        <button type="button" class="btn btn-primary"
+                                data-toggle="modal"
+                                data-target="#addGoalModal"
+                                data-goal-name="{{ objective.name }}"
+                                data-goal-text="{{ objective.objectiveText }}"
+                                data-goal-guidance="{{ objective.guidanceNotes }}"
+                                data-goal-objective="{{ objective.objectiveText }}">Add to Note
+                        </button>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if "/Week" in objectives|keys %}
+                <h4>Weekly Objectives</h4>
+                <div style="border-style: solid;border-width: small; padding:5px;margin-bottom:3px;">
+                    {% for objective in objectives["/Week"] %}
+                        <p style="margin-bottom:2px;">{{ objective.name }} - {{ objective.goaltext }}</p>
+                        <button type="button" class="btn btn-primary"
+                                data-toggle="modal"
+                                data-target="#addGoalModal"
+                                data-goal-name="{{ objective.name }}"
+                                data-goal-text="{{ objective.objectiveText }}"
+                                data-goal-guidance="{{ objective.guidanceNotes }}"
+                                data-goal-objective="{{ objective.objectiveText }}">Add to Note
+                        </button>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if "/Month" in objectives|keys %}
+                <h4>Monthly Objectives</h4>
+                <div style="border-style: solid;border-width: small; padding:5px;margin-bottom:3px;">
+                    {% for objective in objectives["/Month"] %}
+                        <p style="margin-bottom:2px;">{{ objective.name }} - {{ objective.goaltext }}</p>
+                        <button type="button" class="btn btn-primary"
+                                data-toggle="modal"
+                                data-target="#addGoalModal"
+                                data-goal-name="{{ objective.name }}"
+                                data-goal-text="{{ objective.objectiveText }}"
+                                data-goal-guidance="{{ objective.guidanceNotes }}"
+                                data-goal-objective="{{ objective.objectiveText }}">Add to Note
+                        </button>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group col-sm-12">
+            <img src="{{ asset('sigImg.png') }}" style="display: none;" />
+            <canvas id="signature"></canvas>
+            <br>
+            <input type="button" value="Clear Signature" style="top:180px; background:white; border:2px solid;"
+                   onclick="Sclear()">
+        </div>
+    </div>
+    <button type="submit" id="submit" class="btn btn-primary">Submit for Review!</button>
+    {{ form_end(form) }}
+    <div class="modal fade" id="sigModal" tabindex="-1" role="dialog" aria-labelledby="sigModallabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sigModallabel">Signature Missing</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Please hit "Close" and then add your signature to the note, thanks!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addGoalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Insert Goal <span id="goal-name"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6>Goal: </h6>
+                    <div class="card">
+                        <div class="card-block">
+                            <p class="card-text" style="margin:.75rem 1.25rem" id="goal-text"></p>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <h6>Guidance Notes: </h6>
+                    <div class="card">
+                        <div class="card-block">
+                            <p class="card-text" style="margin:.75rem 1.25rem" id="goal-guidance"></p>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <h6>Objective: </h6>
+                    <div class="card">
+                        <div class="card-block">
+                            <p class="card-text" style="margin:.75rem 1.25rem" id="goal-objective"></p>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="message-text" class="form-control-label">Message:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="addObjective" onclick="addObjective(this)" type="button" class="btn btn-primary">
+                        Insert Goal
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+
+        function updatedraft() {
+            uuid = $("#note_id").val();
+            postval = $("#form_content").val();
+            $.post("../updatedraft/" + uuid, {content: postval});
+        }
+
+
+        $('#noteform :input').on('input', _.throttle(function () {
+            // Do expensive things
+            updatedraft();
+        }, 1000));//Limit to once a second
+
+    </script>
+    <script type="text/javascript">
+        function addObjective(x) {
+            var modal = $(x).closest('.modal');
+            var oname = modal.find('#goal-name').text();
+            var otext = modal.find('#goal-objective').text();
+            var otextMessage = modal.find('#message-text').val();
+
+            var box = $("#form_content");
+            box.val(box.val() + ' ' + '(' + oname + ') ' + otext); // Add Objective
+            box.val(box.val() + ' ' + otextMessage + ' '); // Add Staff's custom message
+
+            $('#addGoalModal').modal('hide');
+            modal.find('#message-text').val(''); // Clear the message so it's not on next goal.
+        }
+
+        function showObjectives() {
+            $('.addObjective').parent().show();
+        }
+
+        $('#addGoalModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var goalName = button.data('goal-name') // Extract info from data-* attributes
+            var goalText = button.data('goal-text') // Extract info from data-* attributes
+            var goalGuidance = button.data('goal-guidance') // Extract info from data-* attributes
+            var goalObjective = button.data('goal-objective') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+
+            //modal.find('.modal-title').text('Insert Goal ' + goalName);
+            modal.find('#goal-name').text(goalName);
+            modal.find('#goal-text').text(goalText);
+            modal.find('#goal-guidance').text(goalGuidance);
+            modal.find('#goal-objective').text(goalObjective)
+        })
+    </script>
+
+
+    <script src="{{ asset('jquery.jqscribble.js') }}"></script>
+    <script type="text/javascript">
+        var blanksig = "";
+        $(document).ready(function () {
+            $("canvas#signature").jqScribble();
+            $("canvas#signature").data("jqScribble").clear();
+            $("canvas#signature").data("jqScribble").update({backgroundImage: "{{ asset('sigImg.png') }}"});
+            // Save the default value of the signature image to know whether the user signed it or not.
+            setTimeout(function(){
+                blanksig = document.getElementById('signature').toDataURL();
+            }, 300);
+        });
+
+        function Sclear() {
+            $("#signature").data("jqScribble").clear();
+            $("#signature").data("jqScribble").update({backgroundImage: "{{ asset('sigImg.png') }}"});
+        }
+
+        $("#noteform").submit(function (event) {
+            // Get current signature and compare to verify that a signature was added.
+            currentsig = document.getElementById('signature').toDataURL();
+            if (currentsig === blanksig) {
+                $('#sigModal').modal('show');
+                event.preventDefault();
+                return;
+            } else {
+                $('#form_signature').val(currentsig);
+            }
+            // Let's also make sure that if this individual suffers from bowel movements or seizures
+            // that there is a form attached.
+            forms = [];
+            {%  if note.forms %}
+                forms = {{ note.forms.getValues|json_encode|raw }};
+            {% endif %}
+            if ($.inArray($('#seizure').val(), ["yes", "possible"]) >  -1) {
+                if (forms.filter(function (form) { return form.type == "seizure_activity" }).length == 0) {
+                    $("#seizurewarn").show();
+                    $("#seizurewarn").get(0).scrollIntoView();
+                    event.preventDefault();
+                }
+            }
+            if ($('#bowel').val() == "yes") {
+                if (forms.filter(function (form) { return form.type == "bowel_checklist" }).length == 0) {
+                    $("#bowelwarn").show();
+                    $("#bowelwarn").get(0).scrollIntoView();
+                    event.preventDefault();
+                }
+            }
+        });
+    </script>
+{% endblock %}

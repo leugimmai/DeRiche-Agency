@@ -1,0 +1,36 @@
+{% extends 'notes/forms/template.html.twig' %}
+
+{% block title %}Community Connection Activity Sheet{% endblock %}
+
+{% block form %}
+
+    <div class="form-group row">
+        <label for="activity" class="col-md-3 col-form-label">Activity</label>
+        <div class="col-md-8">
+            <textarea id="activity" name="form_activity" class="form-control" rows="4"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="location" class="col-md-3 col-form-label">Location</label>
+        <div class="col-md-4">
+            <input id="location" name="form_location" class="form-control" type="text">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="score" class="col-md-3 col-form-label">Score<br></label>
+        <div class="col-md-4">
+            <select id="score" name="form_score" class="form-control">
+                <option value="1">1 = Independently</option>
+                <option value="2">2 = Verbal PROMPT</option>
+                <option value="3">3 = Demonstration PROMPT</option>
+                <option value="4">4 = Physical Assistance</option>
+                <option value="5">5 = REFUSED</option>
+                <option value="6">6 = Not Tracked</option>
+                <option value="A">A = Absent</option>
+            </select>
+        </div>
+    </div>
+
+{% endblock %}

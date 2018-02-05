@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if note.state == constant('ACCEPTED', note) %}
+        <div class="alert alert-success" role="alert">
+            <strong>Approved!</strong> This note has successfully been approved.
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col col-md-10" style="display: flex; align-items: center;"><h4 class="pagination-centered">Review
+                Note:</h4></div>
+        <div class="col-6 col-md-2">
+            <a href="../export/{{ note.uuid }}" download target="_blank"><button id="export" type="button" class="btn btn-info">Export PDF</button></a>
+        </div>
+    </div>
+    {% if note.comment %}
+        <div class="alert alert-warning" role="alert">
+            <strong>Comment:</strong> {{ note.comment }}
+        </div>
+    {% endif %}
+    <hr/>
+    <form name="form" method="post" class="container form" id="noteform" action="edit/{{ note.uuid }}">
+        <h5>Individual Name:</h5>
+        <p>{{ note.individual.firstName }} {{ note.individual.lastName }}</p>
+        <h5>Note Creation Date:</h5>
+        <p>{{ note.createdAt|date("m/d/Y") }}</p>
+        <h5>Submitted By:</h5>
+        <p>{{ note.staff.firstName }} {{ note.staff.lastName }}</p>
+        <h5>Content:</h5>
+        <textarea id="content" name="content" required="required" rows="20" class="form-control"
+                  style="display: none;margin-bottom:5px;"></textarea>
+        <p id="contentp">{{ note.content }}</p>
+        <button type="submit" id="submit" class="btn btn-success" style="display: none;">Submit to Database!</button>
+        <h5>Signature on Note:</h5>
+        <p><img src="{{ note.signature }}" alt="Note signature"/></p>
+    </form>
+    {% if note.state == constant('AWAITING_APPROVAL', note) %}
+        <a href="approve/{{ note.uuid }}">
+            <button id="submitdb" type="button" class="btn btn-success">Submit to Database</button>
+        </a>
+        <button id="edit" type="button" class="btn btn-info">Edit Note</button>
+        <form name="comment" method="post" class="form" id="commentform" action="comment/{{ note.uuid }}" style="margin-top:10px;">
+            <button id="correct" type="button" class="btn btn-warning">Add Comment/Kick Back</button>
+            <div id="commentdiv" style="display:none;">
+                <textarea id="comment" name="comment" required="required" rows="10" class="form-control"
+                      style="margin-bottom:5px;margin-top:5px" placeholder="Comment Text Goes here..">{{ note.comment }}</textarea>
+                <input name="savecomment" type="submit" class="btn btn-warning" value="Add Comment">
+                <input name="correctsubmit" type="submit" class="btn btn-warning" value="Send Back for Correction">
+            </div>
+        </form>
+    {% endif %}
+    <div class="card" style="margin-top: 15px;">
+        <h3 class="card-header">Forms - Attached Forms Below</h3>
+        <div class="card-block row">
+            <div class="col-6 col-sm-5" style="margin: 20px">
+                {% for form in note.forms %}
+                    <div>
+                        <a href="/form/view/{{ form.id }}"><span>{{ form.type|readable_enum }}</span></a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).on("click", "#correct", function () {
+            $("#commentdiv").show();
+        });
+        // Handles the edit button.
+        $(document).on("click", "#edit", function () {
+            $("#submitdb").hide();
+            // We get the text from the paragraph, add it to the content textarea.
+            // Then we hide the paragraph, show the textarea and the submit button.
+            $('#content').text($("#contentp").text());
+            $("#contentp").hide();
+            $("#content").show();
+            $("#submit").show();
+        });
+    </script>
+{% endblock %}

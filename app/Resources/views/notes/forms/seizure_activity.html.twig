@@ -1,0 +1,48 @@
+{% extends 'notes/forms/template.html.twig' %}
+
+{% block title %}Seizure Activity Checklist{% endblock %}
+
+{% block form %}
+
+    <div class="form-group row">
+        <label for="seizureType" class="col-md-3 col-form-label">Seizure Type</label>
+        <div class="col-md-8">
+            <select id="seizureType" name="form_seizureType" class="form-control" required>
+                <option value="simple">Simple Partial Seizures: dizziness, numbness, dream state, nausea</option>
+                <option value="complex">Complex Partial Seizures: impaired consciousness, amnesia</option>
+                <option value="absence">Absence: hesitation, staring, eye fluttering</option>
+                <option value="myoclinic">Myoclonic: one or two breif muscle contractions loss of bowel/bladder</option>
+                <option value="clonic">Clonic: repeated jerking of limbs</option>
+                <option value="tonic">Tonic: stiffend muscles, usually conscious</option>
+                <option value="tonic-clonic">Tonic-Clonic: muscles stiffen, vocal tics, loss of consciousness, may bite
+                    tongue, rhythmical jerking of arms and legs
+                </option>
+                <option value="atonic">Atonic: sudden loss of muscle control</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="circumstancesPreceding" class="col-md-3 col-form-label">
+            Circumstance Preceding</label>
+        <div class="col-md-8">
+            <textarea id="circumstancesPreceding" name="form_circumstancesPreceding" class="form-control"
+                      required></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="behaviorAfter" class="col-md-3 col-form-label">Behavior After Seizure</label>
+        <div class="col-md-8">
+            <textarea id="behaviorAfter" name="form_behaviorAfter" class="form-control" required></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="actionsTaken" class="col-md-3 col-form-label">Actions Taken By Staff</label>
+        <div class="col-md-8">
+            <textarea id="actionsTaken" name="form_actionsTaken" class="form-control" required></textarea>
+        </div>
+    </div>
+
+{% endblock %}

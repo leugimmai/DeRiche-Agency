@@ -1,0 +1,299 @@
+{% extends 'notes/forms/template.html.twig' %}
+
+{% block title %}Internal Incident Form{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+        .form-group {
+            text-align: center;
+            margin-bottom: 1.5rem !important;
+        }
+        .card-header {
+            margin-bottom: 1rem !important;
+        }
+        .card {
+            background-color: inherit !important;
+        }
+        #InjuryCanvas canvas {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 545px;
+            height: 481px;
+        }
+        #InjuryCanvas button {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 70%;
+        }
+    </style>
+{% endblock %}
+
+{% block form %}
+    <form action="#" method="post" class="col-9">
+        <table id="t01">
+            <tr>
+                <td>
+                    Date of Incident:
+                    <input type="date" name="incidentdate">
+                </td>
+                <td>
+                    Time of Incident:
+                    <input type="time" name="incidenttime">
+                </td>
+                <td>
+                    Individual Name:
+                    <input type="text" name="firstname">
+                </td>
+                <td>
+                    Location of Incident:
+                    <input type="text" name="location">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Supervisor Notified:
+                    <input type="text" name="supervisor">
+                </td>
+                <td>
+                    Staff Name:
+                    <input type="text" name="staff">
+                </td>
+                <td>
+                    Date:
+                    <input type="date" name="date">
+                </td>
+                <td>
+                    Time:
+                    <input type="time" name="time">
+                </td>
+            </tr>
+        </table>
+        <br>
+        <table id="t01">
+            <caption><b>Type of Incident:</b>(Please select from drop down list under correct section)</caption>
+            <tr>
+                <td>
+                    Injury
+                    <input list="injury">
+                    <datalist id="injury">
+                        <option value="Individual">
+                        <option value="Staff">
+                        <option value="Visitor">
+                    </datalist>
+                </td>
+                <td>
+                    Damage
+                    <input list="damage">
+                    <datalist id="damage">
+                        <option value="DeRiche Property">
+                        <option value="Personal Property">
+                        <option value="Vehicle">
+                        <option value="Other">
+                    </datalist>
+                </td>
+                <td>
+                    Infectious / Contagious Disease
+                    <input type="checkbox" name="disease" value="disease">
+                </td>
+                <td>
+                    Medication Issue
+                    <input list="medication">
+                    <datalist id="medication">
+                        <option value="Error">
+                        <option value="Adverse Drug Reaction">
+                        <option value="Food / Drug Interaction">
+                        <option value="Property Loss">
+                        <option value="Individual Absence">
+                        <option value="Other">
+                    </datalist>
+                </td>
+            </tr>
+        </table>
+        <p>If "Other" in any section, please describe below:</p>
+        <textarea name="other" rows="2" cols="50"></textarea><br>
+
+        <h3>Classification of Incident (Check any that apply)</h3>
+        <input type="checkbox" name="sib" value="SIB">SIB<br>
+        <input type="checkbox" name="attention" value="Attention Seeking">Attention Seeking<br>
+        <input type="checkbox" name="security" value="Security">Security<br>
+        <input type="checkbox" name="other2" value="Other">Other<br>
+        <input type="checkbox" name="minor" value="Minor">Minor<br>
+        <input type="checkbox" name="mild" value="Mild">Mild<br>
+        <input type="checkbox" name="moderate" value="Moderate">Moderate<br>
+        <input type="checkbox" name="major" value="Major">Major<br>
+
+        <section title="Location of Injury" class="card" style="background-color: inherit">
+            <div class="card-header">
+                <h3 class="text-center">Location of Injury</h3>
+            </div>
+
+            <div class="card-body">
+
+                <p>
+                    Mark on the figures the general area of any cuts, scratches, marks or bruises
+                    possibly relating to the incident/accident.
+                </p>
+
+                <section title="Drawing Canvas" id="InjuryCanvas">
+                    <canvas id="intinc"></canvas>
+                    <br/>
+                    <button type="button" href="#" onclick='clearInjuryCanvas()' class="btn btn-block">Clear</button>
+                </section>
+
+                <br/>
+
+                <div class="form-group">
+                    <label for="injuryOthersInvolved">
+                        Other Person(s) Involved (Participant, Staff, Visitor, etc.)
+                        <br/>
+                        Please use first name or initials only:
+                    </label>
+                    <textarea id="injuryOthersInvolved" name="injuryOthersInvolved" class="form-control"
+                              rows="3"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <br/>
+
+        <section title="Description of Incident" class="card">
+            <div class="card-header">
+                <h3 class="text-center">Description of Incident</h3>
+            </div>
+
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="injuries">
+                        Injuries
+                        <br/>
+                        <span class="small">Was anyone injured? Was first aid needed? Who? Describe.</span>
+                    </label>
+                    <textarea id="injuries" name="injuries" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="whatHappenedBefore">What happened right before the incident took place?</label>
+                    <textarea id="whatHappenedBefore" name="whatHappenedBefore" class="form-control"
+                              rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="whatHappenedDuring">What happened during the incident?</label>
+                    <textarea id="whatHappenedDuring" name="whatHappenedDuring" class="form-control"
+                              rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="whatHappenedAfter">What happened right after the incident?</label>
+                    <textarea id="whatHappenedAfter" name="whatHappenedAfter" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="why">Why did the incident occur?</label>
+                    <textarea id="why" name="why" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="whatDidYouDo">What did you do?</label>
+                    <textarea id="whatDidYouDo" name="whatDidYouDo" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="preventativeSteps">How are you going to prevent a recurrence?</label>
+                    <textarea id="preventativeSteps" name="preventativeSteps" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <p>**Report must be completed by employee within 24 hours of incident. If incident involves more than one
+            participant, fill out separate report for each.**</p>
+        <p>Name of person completing this Incident/Accident Form & Date:</p>
+        <input type="text" name="person" placeholder="Name"> <input type="date" name="date1">
+        <br/><br/>
+
+        <h4>Review: Recommendations for Follow-Up (Admin Only)</h4>
+        <textarea name="recommend" rows="4" cols="50"></textarea><br>
+        <p style="margin-bottom:0">Printed Name Person Reviewing Report:</p>
+        <input type="text" name="reviewing"><br/>
+
+        <canvas id="signature"></canvas>
+        <br>
+        <input type="button" value="Clear Signature" style="top:180px; background:white; border:2px solid;"
+               onclick="clearSignatureCanvas()">
+        <br><br>
+        <input type="submit" onClick="save()" value="Submit"/> <input type="reset" value="Clear"/>
+        <input type="hidden" name="intData" id="intData" value="">
+        <input type="hidden" name="sigData" id="sigData" value="">
+    </form><br/>
+    <button onclick="helpFunction()">Help</button>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('jquery.jqscribble.js') }}"></script>
+    <script>
+        var injuryCanvas = $("#intinc");
+        var signatureCanvas = $("#signature");
+
+        function clearInjuryCanvas() {
+            injuryCanvas.data("jqScribble").clear();
+            injuryCanvas.data("jqScribble").update({backgroundImage: "{{ asset('internal.png') }}"});
+        }
+
+        function clearSignatureCanvas() {
+            signatureCanvas.data("jqScribble").clear();
+            signatureCanvas.data("jqScribble").update({backgroundImage: "{{ asset('sigImg.png') }}"});
+        }
+
+        $(document).ready(function () {
+            injuryCanvas.jqScribble();
+            injuryCanvas.data("jqScribble").update({backgroundImage: "{{ asset('internal.png') }}"});
+            // Need to edit jqscribble to fix this issue. TODO: Troubleshoot and remove the timeout.
+
+            setTimeout(function () {
+                signatureCanvas.jqScribble();
+                signatureCanvas.data("jqScribble").update({backgroundImage: "{{ asset('sigImg.png') }}"});
+            }, 50);
+        });
+
+        //  This is the actual way to save the canvas (base64) - can save this to a variable and POST it.
+        //  var bodycanv = document.getElementById('bodycheck');
+        //  console.log(bodycanv.toDataURL())
+
+        // TODO: Replace this.
+        function helpFunction() {
+            alert(
+                "1.Enter Participant?s name in the field provided (First name and last name)\n" +
+                "2.Enter Date and Time of Incident in the fields provided (Date of Incident and Time of Incident)\n" +
+                "3.Enter Location of Incident in the field provided\n" +
+                "4.Enter name of supervisor that was notified in the field provided\n" +
+                "5.Enter your name in the field provided (Staff Name)\n" +
+                "6.Enter date and time in the fields provided (Date and Time)\n" +
+                "7.If someone was injured, select the type of person injured in the drop-down provided (Click-box under Injury)\n" +
+                "8.If damage occurred, select the type of damaged in the drop-down provided (Click-box under Damage)\n" +
+                "9.If an infectious/contagious disease was involved, check the box in the space provided (Check-box under Infectious/Contagious Disease)\n" +
+                "10.If there was a medication issue, select the type of issue in the drop-down provided (Click-box under Medication Issue)\n" +
+                "11.If ?Other? was selected in any of the previous drop-down lists, please specify (Other)\n" +
+                "12.Mark on the chart below any location of injuries\n" +
+                "13.If more than one person was involved, please specify first name of person (initials will also work)\n" +
+                "14.If anyone was injured, please specify what kind of first aid, who was aided, and whether or not first aid was needed, and what was done after the incident\n" +
+                "15.What happened before the incident took place\n" +
+                "16.What happened during the incident\n" +
+                "17.What happened after the incident took place\n" +
+                "18.Why did the incident occur\n" +
+                "19.What did you do\n" +
+                "20.Type your name in the field provided (Under name of person completing form)\n" +
+                "21.Select the date in the from the date picker provided (Under name of person completing form)\n" +
+                "22.In the Recommendations for follow up section,  only if Admin, please type in any recommendations you have for the participant\n" +
+                "23.Enter the name of the reviewer in the field provided\n" +
+                "24.Sign the signature box with the mouse\n" +
+                "25.Click the submit button to finish\n"
+            );
+        }
+    </script>
+    {#<script src="{{ asset('internal_incident.js') }}"></script>#}
+{% endblock %}

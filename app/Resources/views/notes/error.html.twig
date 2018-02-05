@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <section id="Error">
+    <h3>You can not submit a note for this Individual.</h3>
+        {% if todayerror is defined %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Error!</strong> <p>You've already submitted a note for approval for this individual today. </p>Contact a reviewer or admin if you'd like to make changes so they can kick it back.
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

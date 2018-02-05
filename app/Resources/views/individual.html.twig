@@ -1,0 +1,259 @@
+{% extends 'base.html.twig' %}
+{% block title %}Individual Page{% endblock %}
+{% block body %}
+    <div class="individual">
+        <div class="text-center text-info">
+            <h3><b>{{ individual.firstName }} {{ individual.lastName }}</b></h3>
+        </div>
+        <div id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="card">
+                <div class="card-header" role="tab" id="headingOne">
+                    <h5 class="mb-0">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+                           aria-controls="collapseOne">
+                            Individual Information
+                        </a>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="card-block">
+                        <!-- Add Individual Form -->
+                        <form class="container form" id="individuals_form" action="update" method="POST">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="first_name" class="col-form-label">First Name</label>
+                                    <input id="first_name" name="first_name" class="form-control"
+                                           value="{{ individual.firstName }}" required>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="last_name" class="col-form-label">Last Name</label>
+                                    <input id="last_name" name="last_name" class="form-control"
+                                           value="{{ individual.lastName }}" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="medical_id" class="col-form-label">Medical ID</label>
+                                    <input id="medical_id" name="medical_id" class="form-control"
+                                           value="{{ individual.medicalid }}" required
+                                           type="number">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <div class="form-check">
+                                        <label for="seizure" class="form-check-label">
+                                            <input name="seizure" class="form-check-input" type="checkbox" value="seizure" {% if individual.seizure %} checked {% endif %}>
+                                            Does Individual have Seizures?
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <div class="form-check">
+                                        <label for="bowel" class="form-check-label">
+                                            <input name="bowel" class="form-check-input" type="checkbox" value="bowel" {% if individual.bowel %} checked {% endif %}>
+                                            Monitor Individual's Bowel Movements?
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                            </div>
+                        </form>
+                        <!-- End Add Individual Form -->
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="headingTwo">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                           aria-expanded="false" aria-controls="collapseTwo">
+                            Update Objectives
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="rcorners card-block">
+                        <h2><span class="badge badge-info">Objectives</span></h2>
+                        <hr/>
+
+                        {# TODO: Still needs work, particularly in actually updating and ability to remove. #}
+                        {% for objective in individual.objectives %}
+                            <form action="objective/{{ objective.uuid }}/patch" class="form-group row card"
+                                  style="padding: 10px;">
+                                <input type="hidden" value="{{ objective.uuid }}">
+                                <label for="example-text-input" class="col-form-label">Objective Name</label>
+                                <input class="form-control" type="text" id="objectiveName" name="objectiveName"
+                                       value="{{ objective.name }}">
+                                <label for="example-text-input" class="col-form-label">Goal Text</label>
+                                <textarea class="form-control" type="text" id="goalText"
+                                          name="goalText">{{ objective.goalText }}</textarea>
+                                <label for="example-text-input" class="col-form-label">Objective Text</label>
+                                <textarea class="form-control" type="text" id="objectiveText"
+                                          name="objectiveText">{{ objective.objectiveText }}</textarea>
+                                <label for="example-text-input" class="col-form-label">Guidance Notes</label>
+                                <textarea class="form-control" type="text" id="guidanceNotes"
+                                          name="guidanceNotes">{{ objective.guidanceNotes }}</textarea>
+                                <label for="example-text-input" class="col-form-label">Frequency</label>
+                                <div class="row">
+                                    <div class="col-2" style="padding-right: 2px">
+                                        <input class="form-control" type="number" id="freqAmount" name="freqAmount"
+                                               value="{{ objective.freqAmount }}">
+                                    </div>
+                                    <div class="col-6" style="padding-left: 2px">
+                                        <select class="form-control col-5" id="freqKind" name="freqKind">
+                                            <option {% if objective.freqKind == "/Day" %}selected="selected"{% endif %}>
+                                                /Day
+                                            </option>
+                                            <option {% if objective.freqKind == "/Week" %}selected="selected"{% endif %}>
+                                                /Week
+                                            </option>
+                                            <option {% if objective.freqKind == "/Month" %}selected="selected"{% endif %}>
+                                                /Month
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 8px;">
+                                    <div class="col-sm-6" style="padding-right: 2px">
+                                        <button type="submit" class="btn btn-block btn-success">Update Objective
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-6" style="padding-left: 2px">
+                                        <button type="button" class="btn btn-block btn-danger confirm-link"
+                                                data-confirm-title="Delete Objective"
+                                                data-confirm-message="Are you sure you wish to do that?"
+                                                data-bootstrap-color="danger"
+                                                data-link="objective/{{ objective.uuid }}/delete">Remove Objective
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        {% endfor %}
+                        <form class="container form" id="objectives_form" action="objective/" method="POST">
+                            <button type="button" class="btn btn-default" id="addobjective">Add Objective</button>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="headingThree">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                           aria-expanded="false" aria-controls="collapseThree">
+                            View Notes for this Individual
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="card-block">
+                        <table id="AllNotes" class="table table-striped table-bordered" cellspacing="0">
+                            <thead>
+                            <tr>
+                                {#<th>ID</th>#}
+                                <th>Staff</th>
+                                <th>Status</th>
+                                <th>Date Modified</th>
+                                <th>Manage</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for note in individual.getNotes if note.state != constant('DRAFT', note) %}
+                                <tr>
+                                    <td>{{ note.staff.firstName }} {{ note.staff.lastName }}</td>
+                                    {% set statusarray = { 10: 'Draft', 20: 'Awaiting Approval', 30: 'Pending Correction', 40: 'In Database' } %}
+                                    <td>{{ statusarray[note.state] }}</td>
+                                    <td>{{ note.modifiedAt|default(date('0'))|date('F j, Y h:m A') }}</td>
+                                    <td><a href="../../../reviewer/review/{{ note.uuid }}" target="_blank">
+                                            <button type="button" class="btn btn-primary">Manage</button>
+                                        </a></td>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {#Script for handling objective addition. - Syed A#}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //var wrapper = $("#individuals_form");
+            var add_button = $("#addobjective");
+
+            var x = 1; // First objective field.
+            $(add_button).click(function (e) { // When they click "add objective"
+                e.preventDefault();
+
+                // Add the actual objective field to the form.
+                $(add_button).after('' +
+                    '<div class="form-group row card objective">' +
+                    '   <label for="example-text-input" class="col-form-label">Objective Name</label>' +
+                    '   <input class="form-control" type="text" id="objectiveName' + x + '" name="objectiveName' + x + '">' +
+                    '   <label for="example-text-input" class="col-form-label">Goal Text</label>' +
+                    '   <textarea class="form-control" type="text" id="goalText' + x + '" name="goalText' + x + '"></textarea>' +
+                    '   <label for="example-text-input" class="col-form-label">Objective Text</label>' +
+                    '   <textarea class="form-control" type="text" id="objectiveText' + x + '" name="objectiveText' + x + '"></textarea>' +
+                    '   <label for="example-text-input" class="col-form-label">Guidance Notes</label>' +
+                    '   <textarea class="form-control" type="text" id="guidanceNotes' + x + '" name="guidanceNotes' + x + '"></textarea>' +
+                    '   <label for="example-text-input" class="col-form-label">Frequency</label>' +
+                    '   <div class="row" style="padding-left: 15px;"><input class="form-control col-2" type="number" id="freqAmount' + x + '" name="freqAmount' + x + '">' +
+                    '       <select class="form-control col-5" id="freqKind' + x + '" name="freqKind' + x + '">' +
+                    '           <option>/Day</option>' +
+                    '           <option>/Week</option>' +
+                    '           <option>/Month</option>' +
+                    '       </select>' +
+                    '   </div>' +
+                    '   <button type="button" class="btn btn-danger remove_field">Remove Objective</button>' +
+                    '</div>');
+
+                // Now let's move the add button under what we just added and adjust the margins a tad.
+                $(add_button).insertAfter($(add_button).next());
+                $(add_button).css('margin-top', '-8px');
+
+                // when they click "remove objective"
+                $('.objective .remove_field').click(function (e) {
+                    $(this).closest('.objective').remove();
+                });
+
+                x++; //Increment the objective number.
+            });
+
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .card-block {
+            border-radius: 25px;
+            padding: 40px;
+            margin: auto;
+            width: 90%;
+        }
+
+        .objective {
+            margin-top: 5px;
+            margin-left: 0px;
+            padding: 10px;
+            width: 90%
+        }
+
+        .objective .remove_field {
+            margin-top: 8px;
+        }
+    </style>
+{% endblock %}

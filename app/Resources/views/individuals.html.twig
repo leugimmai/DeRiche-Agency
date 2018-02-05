@@ -1,0 +1,230 @@
+{% extends 'base.html.twig' %}
+{% block title %}Individuals Page{% endblock %}
+{% block body %}
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#view" role="tab">View</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#create" role="tab">Create</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#archive" role="tab">Archive</a>
+        </li>
+    </ul>
+
+    <br/>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+
+        <div class="tab-pane active" id="view" role="tabpanel">
+            <table class="table table-striped table-bordered data-table" cellspacing="0">
+                <thead>
+                <tr>
+                    {#<th>ID</th>#}
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Medical ID</th>
+                    <th>Manage</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for individual in individualsQuery.active %}
+                    <tr>
+                        {#<td>{{ individual.id }}</td>#}
+                        <td>{{ individual.firstName }}</td>
+                        <td>{{ individual.lastName }}</td>
+                        <td>{{ individual.medicalId }}</td>
+                        <td>
+                            <!-- Example split danger button -->
+                            <div class="btn-group">
+                                <a role="button" class="btn btn-primary"
+                                   href="individual/{{ individual.uuid }}">View</a>
+                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">Manage Data</h6>
+                                    <a class="dropdown-item confirm-link text-warning"
+                                       data-confirm-title="Archive Individual"
+                                       data-confirm-message="Are you sure you wish to <b>archive</b> {{ individual.firstName }} {{ individual.lastName }}"
+                                       data-bootstrap-color="warning"
+                                       data-link="{{ individual.uuid }}/archive">Archive</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tab-pane fade" id="create" role="tabpanel">
+            <!-- Add Individual Form -->
+            <form class="container form" id="individuals_form" action="create/" method="POST">
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="first_name" class="col-form-label">First Name</label>
+                        <input id="first_name" name="first_name" class="form-control" placeholder="John" required>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="last_name" class="col-form-label">Last Name</label>
+                        <input id="last_name" name="last_name" class="form-control" placeholder="Adams" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="medical_id" class="col-form-label">Medical ID</label>
+                        <input id="medical_id" name="medical_id" class="form-control" placeholder="555111222" required
+                               type="number">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <div class="form-check">
+                            <label for="seizure" class="form-check-label">
+                                <input name="seizure" class="form-check-input" type="checkbox" value="seizure">
+                                Does Individual have Seizures?
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <div class="form-check">
+                            <label for="bowel" class="form-check-label">
+                                <input name="bowel" class="form-check-input" type="checkbox" value="bowel">
+                                Monitor Individual's Bowel Movements?
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-default" id="addobjective">Add Objective</button>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                </div>
+            </form>
+            <!-- End Add Individual Form -->
+        </div>
+
+        <!-- Archived Patients -->
+        <div class="tab-pane" id="archive" role="tabpanel">
+            <table class="table table-striped table-bordered data-table" cellspacing="0">
+                <thead>
+                <tr>
+                    {#<th>ID</th>#}
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Medical ID</th>
+                    <th>Manage</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for individual in individualsQuery.inactive %}
+                    <tr>
+                        {#<td>{{ individual.id }}</td>#}
+                        <td>{{ individual.firstName }}</td>
+                        <td>{{ individual.lastName }}</td>
+                        <td>{{ individual.medicalId }}</td>
+                        <td>
+                            <!-- Example split danger button -->
+                            <div class="btn-group">
+                                <a role="button" class="btn btn-primary"
+                                   href="individual/{{ individual.uuid }}">View</a>
+                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">Manage Data</h6>
+                                    <a class="dropdown-item confirm-link text-success"
+                                       data-confirm-title="Activate Individual"
+                                       data-confirm-message="Are you sure you wish to <b>Activate</b> {{ individual.firstName }} {{ individual.lastName }}"
+                                       data-bootstrap-color="success"
+                                       data-link="{{ individual.uuid }}/unarchive">Activate</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        //        $(document).ready(function () {
+        //            setTimeout(function () {
+        //                $('.data-table').DataTable();
+        //
+        //            }, 100);
+        ////            $('[data-toggle="tooltip"]').tooltip()
+        //        });
+
+        //Prevent DataTable glitching
+        $(document).ready(function () {
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                $.fn.dataTable.tables({visible: true, api: true}).columns.adjust();
+            });
+
+            $('table.data-table').DataTable({
+//                scrollY: 500,
+//                scrollCollapse: true,
+                paging: false,
+                "aoColumns": [
+                    null,
+                    null,
+                    null,
+                    {"bSearchable": false}//Exclude Manage Data column from search
+                ]
+            });
+        });
+    </script>
+    {#Script for handling objective addition. - Syed A#}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var wrapper = $("#individuals_form");
+            var add_button = $("#addobjective");
+
+            var x = 1; // First objective field.
+            $(add_button).click(function (e) { // When they click "add objective"
+                e.preventDefault();
+                // Add the actual objective field to the form..
+                $(add_button).after('' +
+                    '<div class="form-group row card" style="margin-top:5px;margin-left:0px;padding: 10px;width:90%">' +
+                    '<label for="example-text-input" class="col-form-label">Objective Name</label>' +
+                    '<input class="form-control" type="text" id="objectiveName' + x + '" name="objectiveName' + x + '">' +
+                    '<label for="example-text-input" class="col-form-label">Goal Text</label>' +
+                    '<textarea class="form-control" type="text" id="goalText' + x + '" name="goalText' + x + '"></textarea>' +
+                    '<label for="example-text-input" class="col-form-label">Objective Text</label>' +
+                    '<textarea class="form-control" type="text" id="objectiveText' + x + '" name="objectiveText' + x + '"></textarea>' +
+                    '<label for="example-text-input" class="col-form-label">Guidance Notes</label>' +
+                    '<textarea class="form-control" type="text" id="guidanceNotes' + x + '" name="guidanceNotes' + x + '"></textarea>' +
+                    '<label for="example-text-input" class="col-form-label">Frequency</label>' +
+                    '<div class="row" style="padding-left: 15px;"><input class="form-control col-2" type="number" id="freqAmount' + x + '" name="freqAmount' + x + '">' +
+                    '<select class="form-control col-5" id="freqKind' + x + '" name="freqKind' + x + '">' +
+                    '<option>/Day</option><option>/Week</option><option>/Month</option></select></div>' +
+                    '<button type="button" class="btn btn-danger remove_field" style="margin-top: 8px;">Remove Objective</button>' +
+                    '</div>');
+                // Now let's move the add button under what we just added and adjust the margins a tad.
+                $(add_button).insertAfter($(add_button).next());
+                $(add_button).css('margin-top', '-8px');
+                x++; //Increment the objective number.
+            });
+
+            $(wrapper).on("click", ".remove_field", function (e) { // when they click "remove objective"
+                e.preventDefault();
+                $(this).parent('div').remove();
+            })
+        });
+    </script>
+{% endblock %}
