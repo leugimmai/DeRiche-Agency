@@ -11,7 +11,7 @@ To get the project running on your machine. Do the following steps.
 
 3. Run composer install
 
-3. Run bin/symfony_requirements
+3. Run php bin/symfony_requirements
 
 4. It should return back with:
 
