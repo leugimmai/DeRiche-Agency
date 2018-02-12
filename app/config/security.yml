@@ -33,16 +33,16 @@ security:
                 target: /
 
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/individuals, roles: ROLE_ADMIN }
-        - { path: ^/note, roles: ROLE_WRITER }
-        - { path: ^/reviewer, roles: ROLE_REVIEWER }
-        - { path: ^/form, roles: [ROLE_REVIEWER, ROLE_WRITER] }
-
-    role_hierarchy:
-            ROLE_WRITER:      [ROLE_WRITE_NOTE, ROLE_ATTACH_FORM, ROLE_ATTACH_GOAL, ROLE_SUBMIT_FOR_REVIEW]
-            ROLE_REVIEWER:    [ROLE_REVIEW_NOTE, ROLE_COMMENT_NOTE, ROLE_SUBMIT_NOTE_CORRECTION, ROLE_SUBMIT_NOTE]
-            ROLE_ADMIN:       [ROLE_WRITER, ROLE_REVIEWER] # this has all roles by default.
-framework:
-    csrf_protection: ~
+#        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/admin, roles: ROLE_ADMIN }
+#        - { path: ^/individuals, roles: ROLE_ADMIN }
+#        - { path: ^/note, roles: ROLE_WRITER }
+#        - { path: ^/reviewer, roles: ROLE_REVIEWER }
+#        - { path: ^/form, roles: [ROLE_REVIEWER, ROLE_WRITER] }
+#
+#    role_hierarchy:
+#            ROLE_WRITER:      [ROLE_WRITE_NOTE, ROLE_ATTACH_FORM, ROLE_ATTACH_GOAL, ROLE_SUBMIT_FOR_REVIEW]
+#            ROLE_REVIEWER:    [ROLE_REVIEW_NOTE, ROLE_COMMENT_NOTE, ROLE_SUBMIT_NOTE_CORRECTION, ROLE_SUBMIT_NOTE]
+#            ROLE_ADMIN:       [ROLE_WRITER, ROLE_REVIEWER] # this has all roles by default.
+#framework:
+#    csrf_protection: ~
