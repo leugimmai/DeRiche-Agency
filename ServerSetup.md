@@ -90,6 +90,8 @@ Should then read root /var/www/web; Save and exit nano.
 
 21. You should now be able to go to the ipaddr/admin to create users for the site.
 
+22. The version we have so far does not have the security files put in. Once you've made your admin username and password download and replace app/resources/views/admin/admin.html.twig and app/config/security.yml. You can download it off one of our github branches.
+```git clone https://github.com/Prussel4/Test.git -b Files ```
 
 
 
