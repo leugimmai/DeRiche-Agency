@@ -31,11 +31,12 @@ This will focus on installing and setting up using a Digital Ocean Droplet with 
 4. Let us now install Composer, Git, PHP, Nginx. Enter 'Y' when asked to continue.
 
     ```apt-get install composer git php7.0-fpm nginx php7.0-xml php7.0-sqlite3 php7.0-intl php7.0-mbstring php7.0-gd zip unzip```
-5. We will have to edit what serves up the web page. Run this command to get into the file to edit.
+    
+5. We will have to edit what serves up the web page. Run this command to get into the file to edit.  
 
 ```nano /etc/nginx/sites-available/default```
 
-6. Delete everything that is in the file and replace with the server code at: http://andreipall.github.io/php/2016/03/01/setup-symfony-with-nginx-php-7-and-postgresql-on-ubuntu-16.04/
+6. Delete everything that is in the file and replace with the server code with everything over from the file nginx.txt that is in the repository.
 
 7. Write out, save the file, and then you exit the nano editor. You should be able to the IP Address created by Digital Ocean to go check. You should get File Not Found.
 
@@ -69,26 +70,20 @@ This will focus on installing and setting up using a Digital Ocean Droplet with 
 
 ```chown -R www-data:www-data .```
 
-16. Now you will need to edit the Nginx server to give the site. 
-
-```nano /etc/nginx/sites-available/default```
-
-17. The line where it says root /var/www/bug_tracker/web;
-Should then read root /var/www/web; Save and exit nano.
-
-18. Run this command to restart the server.
+16. Run this command to restart the server.
 
 ```service nginx restart```
 
-19. Update the database while inside folder /var/www/
+17. Update the database while inside folder /var/www/
 
 ```bin/console doctrine:schema:update --force```
 
-20. Run this command again to fix permissions.
+18. Run this command again to fix permissions.
 
 ```chown -R www-data:www-data .```
+```chwon -R www-data:www-data www/*```
 
-21. You should now be able to go to the ipaddr/admin to create users for the site.
+19. You should now be able to go to the ipaddr/admin to create users for the site.
 
 22. The version we have so far does not have the security files put in. Once you've made your admin username and password download and replace app/resources/views/admin/admin.html.twig and app/config/security.yml. You can download it off one of our github branches.
 ```git clone https://github.com/Prussel4/Test.git -b Files ```
