@@ -15,9 +15,5 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-<<<<<<< HEAD
 /.idea/*
 /.idea/workspace.xml
-=======
-./idea
->>>>>>> 1c11200eb78848137da326fd47c2b437b5102b84
