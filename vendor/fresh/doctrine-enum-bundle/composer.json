@@ -1,0 +1,60 @@
+{
+    "name": "fresh/doctrine-enum-bundle",
+    "description": "Provides support of ENUM type for Doctrine2 in Symfony applications.",
+    "keywords": ["bundle", "symfony", "doctrine", "entity", "enum", "type", "DBAL", "MySQL", "SQLite", "PostgreSQL", "MSSQL"],
+    "homepage": "https://github.com/fre5h/DoctrineEnumBundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Artem Genvald",
+            "email": "genvaldartem@gmail.com",
+            "role": "Creator"
+        },
+        {
+            "name": "Community",
+            "homepage": "https://github.com/fre5h/DoctrineEnumBundle/graphs/contributors",
+            "role": "Contributors"
+        }
+    ],
+    "support": {
+        "email": "genvaldartem@gmail.com",
+        "issues": "https://github.com/fre5h/DoctrineEnumBundle/issues"
+    },
+    "require": {
+        "php": ">=5.6.0",
+        "doctrine/common": "~2.6",
+        "doctrine/dbal": "~2.5",
+        "symfony/config": "~3.2",
+        "symfony/dependency-injection": "~3.2",
+        "symfony/doctrine-bridge": "~3.2",
+        "symfony/form": "~3.2",
+        "symfony/framework-bundle": "~3.2",
+        "symfony/http-kernel": "~3.2",
+        "symfony/validator": "~3.2",
+        "twig/twig": "~1.30 || ~2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.7.*",
+        "squizlabs/php_codesniffer": "~2.7",
+        "escapestudios/symfony2-coding-standard": "~2.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fresh\\DoctrineEnumBundle\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fresh\\DoctrineEnumBundle\\Tests\\": "Tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "5.x-dev"
+        }
+    }
+}
