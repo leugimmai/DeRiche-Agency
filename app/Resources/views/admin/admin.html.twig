@@ -34,12 +34,28 @@
                 <tbody>
                 {% for user in users %}
                     <tr>
+                        {#<td>{{ user.uuid }}</td>#}
                         <td>{{ user.username }}</td>
                         <td>{{ user.firstName }} {{ user.lastName }}</td>
-                        <td>{{ user.getroles()[0] }}</td>
+                        <td>{% if user.getroles()[2] is defined %}
+                                <input type="hidden" value="" name="secondrole">
+                                <select id="editrole{{ user.username }}" name="editrole">
+                                    <option value="NONE" selected="selected">None</option>
+                                    <option value="ROLE_WRITER"{%if user.getroles[2]=="ROLE_WRITER"%} selected="selected"{%endif%}>Writer</option>
+                                    <option value="ROLE_REVIEWER"{%if user.getroles[2]=="ROLE_REVIEWER"%} selected="selected"{%endif%}>Reviewer</option>
+                                    <option value="ROLE_ADMIN"{%if user.getroles[2]=="ROLE_ADMIN"%} selected="selected"{%endif%}>Administrator</option>
+                                </select>
+                            {% else %}
+                                <select id="editrole{{ user.username }}" name="editrole">
+                                    <option value="NONE" selected="selected">None</option>
+                                    <option value="ROLE_WRITER">Writer</option>
+                                    <option value="ROLE_REVIEWER">Reviewer</option>
+                                    <option value="ROLE_ADMIN">Administrator</option>
+                                </select>
+                            {% endif %}</td>
                         <td>
                             {% if user.getroles()[2] is defined %}
-                                <input type="hidden" value="" name="secondrole"</input>
+                                <input type="hidden" value="" name="secondrole">
                                 <select id="editrole{{ user.username }}" name="editrole">
                                     <option value="NONE" selected="selected">None</option>
                                     <option value="ROLE_WRITER"{%if user.getroles[2]=="ROLE_WRITER"%} selected="selected"{%endif%}>Writer</option>
@@ -59,25 +75,42 @@
                         <td>
                             <!-- Example split danger button -->
                             <div class="btn-group">
+<<<<<<< HEAD
                                 
+=======
+>>>>>>> master
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Manage
                                 </button>
                                 <div class="dropdown-menu">
                                     <h6 class="dropdown-header">Change</h6>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#changeModal" data-id="{{ user.username }}" id="changepwdbutton">Edit Role</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#changeModal" data-id="{{ user.username }}" id="changepwdbutton">Change Password</a>
                                     <div class="dropdown-divider"></div>
                                     <h6 class="dropdown-header">Danger Zone</h6>
+<<<<<<< HEAD
                                     
                                     <a class="dropdown-item confirm-link text-danger"#
                                        #data-confirm-title="Delete User"#
                                        #data-confirm-message="Are you sure you wish to <b>delete</b> {{ user.username }}"#
                                        #data-bootstrap-color="danger"#
                                        #data-link="/admin/delete/{{ user.username }}">Delete</a>
+=======
+                                    <a class="dropdown-item confirm-link text-warning"
+                                       data-confirm-title="Archive User"
+                                       data-confirm-message="Are you sure you wish to <b>archive</b> {{ user.username }}"
+                                       data-bootstrap-color="warning"
+                                       data-link="/admin/archive/{{ user.username }}">Archive</a>
+                                    <a class="dropdown-item confirm-link text-danger"
+                                       data-confirm-title="Delete User"
+                                       data-confirm-message="Are you sure you wish to <b>delete</b> {{ user.username }}"
+                                       data-bootstrap-color="danger"
+                                       data-link="/admin/delete/{{ user.username }}">Delete</a>
+>>>>>>> master
                                 </div>
                             </div>
                         </td>
-                    </tr> 
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>

@@ -3,7 +3,7 @@
 {% block body %}
     {% if app.request.query.get("error") == "Multiple" %}
         <div class="alert alert-danger" role="alert">
-            <strong>Unable to Create Note:</strong> Multiple patients were found. We do not deal with this conflict well. Please change one of the patient names.
+            <strong>Unable to Create Note:</strong> Multiple individuals were found. We do not deal with this conflict well. Please change one of the individual names.
         </div>
     {% endif %}
     {% if backnotes != [] %}
