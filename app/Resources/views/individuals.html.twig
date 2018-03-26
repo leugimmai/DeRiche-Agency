@@ -41,11 +41,14 @@
                         <td>
                             <!-- Example split danger button -->
                             <div class="btn-group">
-                                <a role="button" class="btn btn-primary"
-                                   href="individual/{{ individual.uuid }}">View</a>
-                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
+                                {#<a role="button" class="btn btn-primary"#}
+                                   {#href="individual/{{ individual.uuid }}">View</a>#}
+                                {#<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"#}
+                                        {#data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+                                    {#<span class="sr-only">Toggle Dropdown</span>#}
+                                {#</button>#}
+                                <button type="button" id="buttons" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Manage
                                 </button>
                                 <div class="dropdown-menu">
                                     <h6 class="dropdown-header">Manage Data</h6>
@@ -79,8 +82,7 @@
                 <div class="row">
                     <div class="form-group col-sm-6">
                         <label for="medical_id" class="col-form-label">Medical ID</label>
-                        <input id="medical_id" name="medical_id" class="form-control" placeholder="555111222" required
-                               type="number">
+                        <input id="medical_id" name="medical_id" class="form-control" placeholder="555111222" type="number">
                     </div>
                 </div>
                 <div class="row">
@@ -133,11 +135,14 @@
                         <td>
                             <!-- Example split danger button -->
                             <div class="btn-group">
-                                <a role="button" class="btn btn-primary"
-                                   href="individual/{{ individual.uuid }}">View</a>
-                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
+                                {#<a role="button" class="btn btn-outline-primary"#}
+                                   {#href="individual/{{ individual.uuid }}">View</a>#}
+                                {#<button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"#}
+                                        {#data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+                                    {#<span class="sr-only">Toggle Dropdown</span>#}
+                                {#</button>#}
+                                <button type="button" id="buttons" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Manage
                                 </button>
                                 <div class="dropdown-menu">
                                     <h6 class="dropdown-header">Manage Data</h6>

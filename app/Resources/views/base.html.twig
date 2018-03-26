@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="{{ asset('static/bootstrap-4.0.0-beta/css/bootstrap.min.css') }}">
     {% if app.request.cookies.has('theme') %}
         {% if app.request.cookies.get('theme') starts with 'default' %}
-            <link rel="stylesheet" href="{{ asset('style.css') }}">
+            <link rel="stylesheet" href="{{ asset('style-blue-theme.css') }}">
         {% else %}
             <link rel="stylesheet" href="{{ asset('style-' ~ app.request.cookies.get('theme') ~ '.css') }}">
         {% endif %}
     {% else %}
-        <link rel="stylesheet" href="{{ asset('style.css') }}">
+        <link rel="stylesheet" href="{{ asset('style-blue-theme.css') }}">
     {% endif %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 
@@ -26,9 +26,10 @@
     <link rel="preload" as="script" href="{{ asset('static/underscore/underscore-min.js') }}">
 </head>
 <body>
+
 <div class="container-fluid" id="wrapper">
     <header>
-        <h1 id="logo" class="logo">DeRiche Agency, Inc.</h1>
+        <h1 id="logo" class="logo">DeRiche Agency</h1>
     </header>
     <div class="row">
         <div class="col-md-3">
@@ -183,13 +184,13 @@
             YouTube Playlist</a>
     </footer>
 </div>
-<div class="row">
-    <div class="col-md-2" style="margin-left: 27px;"></div>
-    <div style="width: 3.3%; background-color:#FFFFFF;">
-        <span class="color-pick" id="default-theme"></span>
-        <span class="color-pick" id="blue-theme"></span>
-    </div>
-</div>
+{#<div class="row">#}
+    {#<div class="col-md-2" style="margin-left: 27px;"></div>#}
+    {#<div style="width: 3.3%; background-color:#FFFFFF;">#}
+        {#<span class="color-pick" id="default-theme"></span>#}
+        {#<span class="color-pick" id="blue-theme"></span>#}
+    {#</div>#}
+{#</div>#}
 <script type="text/javascript">
     $(function () {
         $(".color-pick").click(function () {
