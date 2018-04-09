@@ -30,4 +30,4 @@ To get the project running on your machine in a local environment. Do the follow
 
 6. Run the command below in your terminal to start the local server. You can then go to the link given to visit the project.
 
-```php bin/console server:runn```
+```php bin/console server:run```
