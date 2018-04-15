@@ -52,6 +52,32 @@ class SubmitterController extends Controller
     }
 
     /**
+     * Review a specific note, fairly simple. We pull the note ID from the {id} and use it to render a template.
+     * @Route("/render/", name="writers reviews a note.")
+     */
+    public function renderTest()
+    {
+        // Get all notes and render.
+        $notes = $this->getDoctrine()
+            ->getRepository(Note::class)
+            ->findAll();
+        return $this->render('writerreview.html.twig', array(
+            'notes' => $notes
+        ));
+    }
+
+    /**
+     * Review a specific note, fairly simple. We pull the note ID from the {id} and use it to render a template.
+     * @Route("/review/{id}", name="writer reviews a note.")
+     */
+    public function pre(Request $request, Note $note)
+    {
+        return $this->render('writerview.html.twig', array(
+            'note' => $note
+        ));
+    }
+
+    /**
      * Search for a individual for use and then forward a customer to the note creation system.
      * @Route("/findindividual/", name="Writer Find Individual")
      */
@@ -170,6 +196,45 @@ class SubmitterController extends Controller
                 'form_types' => FormType::getReadableValues()
             ));
         }
+    }
+
+    /**
+     * This is for exporting a note and is fairly simple to understand.
+     * @Route("/export/{id}", name="Writer exports a note.")
+     */
+    public function export(Request $request, Note $note)
+    {
+        // Let's generate the PDF using a library called Mpdf, you need to use the composer.json file to install it.
+        $mpdf = new \Mpdf\Mpdf();
+        // Set the header.
+        $mpdf->SetHeader("Individual Note: " . $note->getIndividual()->getFirstName() . " " . $note->getIndividual()->getLastName());
+        // Set the title of the note.
+        $mpdf->SetTitle('Individual Note: ' . $note->getIndividual()->getFirstName() . " " . $note->getIndividual()->getLastName());
+        // Write the basic note data.
+        $mpdf->WriteHTML("<h3>Individual Name:</h3><p>" . $note->getIndividual()->getFirstName() . " " . $note->getIndividual()->getLastName() . "</p>");
+        $mpdf->WriteHTML("<h3>Note Creation Date:</h3><p>" . $note->getCreatedAt()->format('m/d/Y') . "</p>");
+        $mpdf->WriteHTML("<h3>Staff Member:</h3><p>" . $note->getStaff()->getFirstName() . " " . $note->getStaff()->getLastName() . "</p>");
+        $mpdf->WriteHTML("<h3>Content:</h3><p>" . $note->getContent() . "</p>");
+        $mpdf->WriteHTML('<h3>Signature:</h3><p><img src="data:image/jpg;base64, ' . $note->getSignature() . '"/></p>');
+        // Iterate over the forms to attach them to the PDF as well.
+        foreach($note->getForms() as $form) {
+            // We add a page to the PDF and then write the form data to that page.
+            $mpdf->AddPage();
+            $mpdf->WriteHTML("<h1>Form: " . $form->getType() . "</h1>"); // TODO: Get actual text instead of enum.
+            // TODO: Make it display actual form stuff somehow. Maybe hard code.
+            // Iterate over the form data array and pull the fields we need.
+            foreach($form->getData() as $k=>$v) {
+                // Add a specific field for the signature as it needs to be an image, the rest are paragraphs.
+                if($k == "form_signature_canvas") {
+                    $mpdf->WriteHTML('<h3>'.$k.'</h3><p><img src="data:image/jpg;base64, ' . $v . '"/></p>');
+                    continue;
+                }
+                $mpdf->WriteHTML("<h3>".$k."</h3><p>".$v."</p>");
+            }
+        }
+        // Generate the output and send it back with a file name.
+        // The filename would be Note_Oliver-10-22.pdf for example.
+        $mpdf->Output('Note_'.$note->getIndividual()->getLastName().'-'.$note->getCreatedAt()->format("m-d").'.pdf', 'I');
     }
 
     /**
