@@ -9,7 +9,9 @@
     <div class="row">
         <div class="col col-md-10" style="display: flex; align-items: center;"><h4 class="pagination-centered">Review
                 Note:</h4></div>
-
+        {#<div class="col-6 col-md-2">#}
+            {#<a href="../export/{{ note.uuid }}" download target="_blank"><button id="export" type="button" class="btn btn-info">Download</button></a>#}
+        {#</div>#}
     </div>
     {% if note.comment %}
         <div class="alert alert-warning" role="alert">
@@ -17,7 +19,6 @@
         </div>
     {% endif %}
     <hr/>
-
     <form name="form" method="post" class="container form" id="noteform" action="edit/{{ note.uuid }}">
         <h5>Individual Name:</h5>
         <p>{{ note.individual.firstName }} {{ note.individual.lastName }}</p>
@@ -30,20 +31,14 @@
                   style="display: none;margin-bottom:5px;"></textarea>
         <p id="contentp">{{ note.content }}</p>
         <button type="submit" id="submit" class="btn btn-success" style="display: none;">Submit to Database!</button>
+        <h5>Signature on Note:</h5>
 
-        <div>
-            <h5>Signature on Note:</h5>
-            <p><img src="{{ note.signature }}" alt="Note signature"/></p>
-            <div style="float: right" class="col-6 col-md-2">
-                <a href="../export/{{ note.uuid }}" download target="_blank"><button id="export" type="button" class="btn btn-info">Export PDF</button></a>
-            </div>
+        <p><img src="{{ note.signature }}" alt="Note signature"/></p>
+        <div class="col-6 col-md-2" style="float: right;">
+            <a href="../export/{{ note.uuid }}" download target="_blank"><button id="export" type="button" class="btn btn-success">Download</button></a>
         </div>
 
     </form>
-
-
-
-
     {% if note.state == constant('AWAITING_APPROVAL', note) %}
         <a href="approve/{{ note.uuid }}">
             <button id="submitdb" type="button" class="btn btn-success">Submit to Database</button>
