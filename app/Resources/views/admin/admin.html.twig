@@ -33,8 +33,8 @@
                 </thead>
                 <tbody>
                 {% for user in users %}
-{#                    <tr>
-                        <td>{{ individual.id }}</td>
+                    <tr>
+                        {#<td>{{ individual.id }}</td>#}
                         <td>{{ user.username }}</td>
                         <td>{{ user.firstName }} {{ user.lastName }}</td>
                         <td>{{ user.getroles()[0] }}</td>
@@ -60,7 +60,6 @@
                         <td>
                             <!-- Example split danger button -->
                             <div class="btn-group">
-                                <a role="button" class="btn btn-primary" href="user/{{ user.username }}">View</a>
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Manage
                                 </button>
@@ -82,7 +81,7 @@
                                 </div>
                             </div>
                         </td>
-                    </tr>#}
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
