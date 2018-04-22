@@ -23,7 +23,7 @@ class Patient
      * TODO: Rename id in database to medicalId
      * @var integer
      *
-     * @ORM\Column(name="medicalId", type="integer", unique=true)
+     * @ORM\Column(name="medicalId", type="integer", unique=false)
      */
     private $medicalId;
 
