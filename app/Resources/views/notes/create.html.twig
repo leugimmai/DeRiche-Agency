@@ -82,16 +82,18 @@
                 </select>
             {% endif %}
         </div>
+        
         <div class="col-sm-4" style="padding-top: 50px;">
             {#<button type="button" style="margin-bottom: 10px;" onclick="showObjectives()">#}
             {#reload#}
             {#</button>#}
             {% if "/Day" in objectives|keys %}
                 <h4>Daily Objectives</h4>
-                <div style="border-style: solid;border-width: small; padding:5px;margin-bottom:3px;">
+                <div style="border-style: solid;border-width: small; padding:10px;margin-bottom:3px;border-radius:15px;">
                     {% for objective in objectives["/Day"] %}
                         <p style="margin-bottom:2px;">{{ objective.name }} - {{ objective.goaltext }}</p>
-                        <button type="button" class="btn btn-primary" id="buttons"
+                        <button type="button" class="btn btn-outline-success btn-block" id="buttons" 
+                            style="margin-top:8px;"
                                 data-toggle="modal"
                                 data-target="#addGoalModal"
                                 data-goal-name="{{ objective.name }}"
@@ -146,8 +148,9 @@
         </div>
     </div>
     <button type="submit" id="buttons" class="btn btn-success">Submit for Review!</button>
-    <div class="col-6 col-md-2" style="float: right">
-        <a href="../export/{{ note.uuid }}" download target="_blank"><button id="buttons" type="button" class="btn btn-info">Download</button></a>
+    <div class="col-6 col-md-4" style="float: right">
+        <a href="../export/{{ note.uuid }}" download target="_blank"><button id="buttons"
+            type="button" class="btn btn-success btn-block">Print</button></a>
     </div>
     {{ form_end(form) }}
     <div class="modal fade" id="sigModal" tabindex="-1" role="dialog" aria-labelledby="sigModallabel"
@@ -212,7 +215,9 @@
                         <div class="form-group">
                             <label for="message-text" class="form-control-label">Message:</label>
                             <textarea class="form-control" id="message-text"></textarea>
+                            <p class="text text-muted">Minimum of 60 characters.</p>
                         </div>
+                        
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -250,7 +255,7 @@
 
             var box = $("#form_content");
 
-            if(otextMessage.length >= 90){
+            if(otextMessage.length >= 60){
                 box.val(box.val() + ' ' + '(' + oname + ') ' + otext); // Add Objective
                 box.val(box.val() + ' ' + otextMessage + ' '); // Add Staff's custom message
             }

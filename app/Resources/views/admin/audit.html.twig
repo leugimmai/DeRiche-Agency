@@ -3,6 +3,37 @@
 {% block body %}
     <h2>Audit Dashboard</h2>
     <p>This page will be used by the admin to generate audits.</p>
+    <!-- Trigger the modal with a button -->
+                    <button style="padding:7px 18px; border-radius: 15px; margin-bottom:15px;" type="button" class="btn btn-outline-info btn-md" data-toggle="modal" data-target="#myModal">Help</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                        
+                        <!-- Modal content-->
+                        <div class="modal-content" style="border-radius:15px;">
+                            <div class="modal-header bg bg-info"  style="border-radius:13px 13px 0px 0px;">
+                                <h4 class="modal-title">Help for Auditing Tools</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                There are 2 ways to generate an audit:<br><br>
+                                    Use the Individual’s name:<br>
+                                        All notes will appear in the audit.
+                                        Type in the individual’s name and press “Get Notes”.
+                                        The notes will then appear.<br><br>
+                                    Use a date range:<br>
+                                        Enter the date range then press “Get Notes”.
+                                        The notes will then appear.
+                                        <mark>WARNING:</mark> Only notes submitted to the database will be in this audit.
+                            </div>
+                            <div class="modal-footer">
+                            <button style="border-radius:15px" type="button" class="btn btn-success" data-dismiss="modal">I've got this!</button>
+                            </div>
+                        </div>
+                        
+                        </div>
+                    </div>
     <form action="individual" type="POST">
         <div class="form-group col-sm-8">
             <label for="name" class="col-form-label">Generate an audit based on the individual:</label>
@@ -24,10 +55,8 @@
         </div>
     </form>
     <div class="row" style="margin-top:20px;">
-        <div class="col-md-8"></div>
-        <div class="col-md-4">
-            <a href="db-backup" download target="_blank"><button type="backupdb" class="btn btn-primary btn-block btn-warning" id="buttons">Backup Database</button></a>
-        </div>
+        <div class="col-md-12"></div>
+        
     </div>
     {% if notes is defined %}
         <div>
@@ -42,7 +71,7 @@
                     <th>Individual</th>
                     <th>Status</th>
                     <th>Date</th>
-                    <th>Download</th>
+                    <th>Print</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -58,7 +87,7 @@
                             <td>{{ note.submittedAt|default(date('0'))|date('F j, Y') }}</td>
                         {% endif %}
                         <td><a href="../../../reviewer/export/{{ note.uuid }}" download target="_blank">
-                                <button type="button" class="btn btn-outline-success btn-sm" id="buttons">Download</button>
+                                <button type="button" class="btn btn-outline-success btn-sm" id="buttons">Print</button>
                             </a></td>
                         </td>
                     </tr>

@@ -4,13 +4,54 @@
     <h2>Admin Dashboard</h2>
     <p>This page will be used by the admin to create users and change privileges.</p>
 
+    <!-- Trigger the modal with a button -->
+                    <button style="padding:7px 18px; border-radius: 15px; margin-bottom:15px; margin-right:20px; float:right" type="button" class="btn btn-outline-info btn-md" data-toggle="modal" data-target="#myModal">Help</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                        
+                        <!-- Modal content-->
+                        <div class="modal-content" style="border-radius:15px;">
+                            <div class="modal-header bg bg-info"  style="border-radius:13px 13px 0px 0px;">
+                                <h4 class="modal-title">Help for Admin Dashboard</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                To view your employees click the view tab.
+                                <br><br>
+                                To add secondary roles use the drop down box to choose the role then press update.
+                                <br><br>
+                                To change the user’s password go to manage -> Change Password.
+                                    A pop-up box will appear where you can change the password.
+                                    Type in the new password and click “Change Password”.
+                                <br><br>
+                                To delete a user go to manage -> Delete.
+                                    A pop-up box will appear asking you to confirm the deletion.
+                                    To confirm press “Delete User”.
+                                <br><br>
+                                To create a new user click on the “Create” tab.
+                                    Enter all the information and select the user’s role.
+                                    Click the “Register” button.
+                                <br><br>
+                            </div>
+                            <div class="modal-footer">
+                            <button style="border-radius:15px" type="button" class="btn btn-success" data-dismiss="modal">I've got this!</button>
+                            </div>
+                        </div>
+                        
+                        </div>
+                    </div>
+
+    <br><br>
+
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#view" role="tab">View</a>
+            <a class="nav-link active nav-link-color" data-toggle="tab" href="#view" role="tab">View</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#create" role="tab">Create</a>
+            <a class="nav-link nav-link-color" data-toggle="tab" href="#create" role="tab">Create</a>
         </li>
     </ul>
 
@@ -20,7 +61,7 @@
     <div class="tab-content">
 
         <div class="tab-pane active" id="view" role="tabpanel">
-            <table id="admins" class="table table-bordered table-hover" cellspacing="0">
+            <table id="admins" class="table table-hover" cellspacing="0">
                 <thead>
                 <tr>
                     {#<th>ID</th>#}
@@ -61,7 +102,7 @@
                             <!-- Example split danger button -->
                             <div class="btn-group">
                                 {#<a role="button" class="btn btn-primary" href="user/{{ user.username }}">View</a>#}
-                                <button type="button" id="buttons" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button type="button" id="buttons" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Manage
                                 </button>
                                 <div class="dropdown-menu">
@@ -96,8 +137,8 @@
                             <h4>Set a password, make it strong.</h4>
                             <div class="form-group col-md-8">
                                 <label for="name" class="col-form-label">Password:</label>
-                                <input id="password" name="password" class="form-control" placeholder="Make it strong!" required>
-                                <button type="submit" class="btn btn-primary btn-block" style="margin-top:10px;">Change Password</button>
+                                <input id="password" name="password" class="form-control" placeholder="Make it strong!" style="border-radius:15px;" required>
+                                <button type="submit" class="btn btn-success btn-block" style="margin-top:10px;" id="buttons">Change Password</button>
                             </div>
                         </form>
                     </div>
@@ -154,7 +195,7 @@
             </div>
 
 
-            <button class="btn btn-success" id="buttons" type="submit" style="min-width: 15%">Register</button>
+            <button class="btn btn-success btn-block" id="buttons" type="submit" style="min-width: 15%">Register</button>
             {{ form_end(form) }}
             <!-- End Add Individual Form -->
         </div>

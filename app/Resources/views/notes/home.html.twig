@@ -1,6 +1,46 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+        <!-- Trigger the modal with a button -->
+                    <button style="padding:7px 18px; border-radius: 15px; margin-bottom:15px; float:right" type="button" class="btn btn-outline-info btn-md" data-toggle="modal" data-target="#myModal">Help</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                        
+                        <!-- Modal content-->
+                        <div class="modal-content" style="border-radius:15px;">
+                            <div class="modal-header bg bg-info"  style="border-radius:13px 13px 0px 0px;">
+                                <h4 class="modal-title">Help for Create Note or Print</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                Creating a note:<br><br>
+                                Fill in Individual’s Name box and click “Find Individual”.
+                                Create a Form (if needed and fill out the appropriate information).
+                                Add your notes for today.
+                                Then hit “Submit for Review!”.
+                                To print your note for today hit the blue “Download” button in the bottom right corner.<br><br>
+
+                                Printing a Note:<br><br>
+                                Click “Print your notes”.
+                                Hit the print button on the note you wish to print.
+                                Press the Green “Download” near the bottom right of the page.<br><br>
+
+                                Kicked-Back Notes:<br><br>
+                                If a note you have submitted was kicked back it will display after you click “Create Note or Print”.
+                                To edit the note, click the “Edit” button.
+                                Edit what needs to be fixed then press the “Submit for Review!” at the bottom of the page.
+                            </div>
+                            <div class="modal-footer">
+                            <button style="border-radius:15px" type="button" class="btn btn-success" data-dismiss="modal">I've got this!</button>
+                            </div>
+                        </div>
+                        
+                        </div>
+                    </div>
+<br><br>
+
     {% if app.request.query.get("error") == "Multiple" %}
         <div class="alert alert-danger" role="alert">
             <strong>Unable to Create Note:</strong> Multiple patients were found. We do not deal with this conflict well. Please change one of the patient names.
@@ -10,6 +50,7 @@
         <div class="alert alert-danger" role="alert">
             <strong>Warning!</strong> You have kicked-back notes. Please correct these issues before submitting a new
             note.
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         </div>
         <section id="backnotes">
             <h1>Kicked-Back Notes</h1>
@@ -24,11 +65,11 @@
                 </thead>
                 <tbody>
                 {% for note in backnotes %}
-                    <tr>
+                    <tr class="table-danger">
                         <td>{{ note.individual.firstName }} {{ note.individual.lastName }}</td>
                         <td>{{ note.createdAt|default(date('0'))|date('F j, Y h:m A') }}</td>
                         <td><a href="create/{{ note.individual.uuid }}">
-                                <button type="button" class="btn btn-outline-primary btn-sm" id="buttons">Edit</button>
+                                <button type="button" class="btn btn-danger btn-sm" id="buttons">Edit</button>
                             </a></td>
                         </td>
                     </tr>
@@ -51,11 +92,11 @@
                 </thead>
                 <tbody>
                 {% for note in draftnotes %}
-                    <tr>
+                    <tr class="table-warning">
                         <td>{{ note.individual.firstName }} {{ note.individual.lastName }}</td>
                         <td>{{ note.modifiedAt|default(date('0'))|date('F j, Y h:m A') }}</td>
                         <td><a href="create/{{ note.individual.uuid }}">
-                                <button type="button" class="btn btn-outline-primary btn-sm" id="buttons">Edit</button>
+                                <button type="button" class="btn btn-warning btn-sm" id="buttons">Edit</button>
                             </a></td>
                         </td>
                     </tr>
@@ -81,13 +122,7 @@
                 </div>
         </form>
     </section>
-
-
-        </form>
-    </section>
-
-    <div class="col-sm-8" style="margin-top: 20px;">
+    <div class="col-sm-9-8" style="margin-top: 20px">
         <a href="render/"><button type="submit" class="btn btn-info btn-block" id="buttons">Print your notes</button></a>
     </div>
-
 {% endblock %}

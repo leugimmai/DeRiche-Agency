@@ -2,7 +2,41 @@
 
 {% block body %}
     <section id="ReviewerNotes">
-        <h2 class="text-primary">Notes Awaiting Approval</h2>
+    <!-- Trigger the modal with a button -->
+                    <button style="padding:7px 18px; border-radius: 15px; margin-bottom:15px; margin-right:20px; float:right" type="button" class="btn btn-outline-info btn-md" data-toggle="modal" data-target="#myModal">Help</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                        
+                        <!-- Modal content-->
+                        <div class="modal-content" style="border-radius:15px;">
+                            <div class="modal-header bg bg-info"  style="border-radius:13px 13px 0px 0px;">
+                                <h4 class="modal-title">Help for Review Notes</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                Click “Review Notes”.<br>
+                                Notes Awaiting Approval will be displayed first.<br>
+                                Click “Manage”.<br>
+                                If the note needs to be sent back press “Add Comment/Kick Back”.
+                                    Use the textbox to add your comment then press “Add Comment”.
+                                    Next press “Send Back for Correction”.<br>
+                                If the note needs to be edited press “Edit Note”.
+                                    Edit what is needed and hit “Submit to Database”.<br>
+                                If the note is good and you approve it press “Submit to Database”.
+                            </div>
+                            <div class="modal-footer">
+                            <button style="border-radius:15px" type="button" class="btn btn-success" data-dismiss="modal">I've got this!</button>
+                            </div>
+                        </div>
+                        
+                        </div>
+                    </div>
+<br><br>
+
+
+        <h2>Notes Awaiting Approval</h2>
         <hr/>
         <!-- Show pending notes grouped by individual -->
         <section>
@@ -18,18 +52,18 @@
                 </thead>
                 <tbody>
                 {% for note in notes if note.state == constant('AWAITING_APPROVAL', note) %}
-                    <tr>
+                    <tr class="table-warning">
                         <td>{{ note.individual.firstName }} {{ note.individual.lastName }}</td>
                         <td>{{ note.staff.firstName }} {{ note.staff.lastName }}</td>
                         <td>{{ note.modifiedAt|default(date('0'))|date('F j, Y h:i A') }}</td>
-                        <td><a href="review/{{ note.uuid }}"><button type="button" class="btn btn-outline-primary btn-sm" id="buttons">Manage</button></a></td>
+                        <td><a href="review/{{ note.uuid }}"><button type="button" class="btn btn-warning btn-sm" id="buttons">Manage</button></a></td>
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
 
-            <h2 class="text-primary">Approved/Submitted Notes</h2>
+            <h2>Approved/Submitted Notes</h2>
             <hr/>
             <table id="ReviewerNotesCompleted" class="table table-hover" cellspacing="0">
                 <thead>
@@ -43,18 +77,18 @@
                 </thead>
                 <tbody>
                 {% for note in notes if note.state == constant('ACCEPTED', note) %}
-                    <tr>
+                    <tr class="table-success">
                         <td>{{ note.individual.firstName }} {{ note.individual.lastName }}</td>
                         <td>{{ note.staff.firstName }} {{ note.staff.lastName }}</td>
                         <td>{{ note.submittedAt|default(date('0'))|date('F j, Y h:i A') }}</td>
-                        <td><a href="review/{{ note.uuid }}"><button type="button" class="btn btn-primary">View</button></a></td>
+                        <td><a href="review/{{ note.uuid }}"><button type="button" class="btn btn-success btn-sm" id="buttons">Manage</button></a></td>
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
 
-            <h2 class="text-primary">Notes pending correction</h2>
+            <h2>Notes pending correction</h2>
             <hr/>
             <table id="ReviewerNotesCompleted" class="table table-hover" cellspacing="0">
                 <thead>
@@ -68,11 +102,11 @@
                 </thead>
                 <tbody>
                 {% for note in notes if note.state == constant('KICKED_BACK', note) %}
-                    <tr>
+                    <tr class="table-danger">
                         <td>{{ note.individual.firstName }} {{ note.individual.lastName }}</td>
                         <td>{{ note.staff.firstName }} {{ note.staff.lastName }}</td>
                         <td>{{ note.modifiedAt|default(date('0'))|date('F j, Y h:i A') }}</td>
-                        <td><a href="review/{{ note.uuid }}"><button type="button" class="btn btn-primary">View</button></a></td>
+                        <td><a href="review/{{ note.uuid }}"><button type="button" class="btn btn-danger btn-sm" id="buttons">Manage</button></a></td>
                         </td>
                     </tr>
                 {% endfor %}

@@ -30,7 +30,7 @@ class Patient
     /**
      * @var string
      *
-     * @ORM\Column(name="firstName", type="string", length=255, nullable=false)
+     * @ORM\Column(name="firstName", type="string", length=255, nullable=true)
      */
     private $firstName;
 

@@ -2,6 +2,46 @@
 {% block title %}Individuals Page{% endblock %}
 {% block body %}
 
+<!-- Trigger the modal with a button -->
+                    <button style="padding:7px 18px; border-radius: 15px; margin-bottom:15px; margin-right:20px; float:right" type="button" class="btn btn-outline-info btn-md" data-toggle="modal" data-target="#myModal">Help</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                        
+                        <!-- Modal content-->
+                        <div class="modal-content" style="border-radius:15px;">
+                            <div class="modal-header bg bg-info"  style="border-radius:13px 13px 0px 0px;">
+                                <h4 class="modal-title">Help for Individuals</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                To view current Individuals<br><br>
+                                Click the “View” tab.
+                                This will display all individuals.
+                                To archive an individual click Manage -> Archive.
+                                A pop-up box will appear asking you to confirm.
+                                Click “Archive Individual” to confirm.<br><br>
+                            To create new Individuals<br><br>
+                                Click the “Create” tab.
+                                Enter the necessary information and check the boxes (If applicable).
+                                Add as many objectives as needed by clicking the “Add New Objective” button.
+                                Fill out the Objective form’s boxes.
+                                When you are ready click “Submit”.<br><br>
+                            To view Archived individuals<br><br>
+                                Click the “Archive” tab.
+                                To activate an individual: Click manage -> Activate.
+                                A pop-up box will appear.
+                                Confirm by clicking “Activate Individual”.
+                            </div>
+                            <div class="modal-footer">
+                            <button style="border-radius:15px" type="button" class="btn btn-success" data-dismiss="modal">I've got this!</button>
+                            </div>
+                        </div>
+                        
+                        </div>
+                    </div>
+<br><br>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
@@ -81,8 +121,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-sm-6">
-                        <label for="medical_id" class="col-form-label">Medical ID</label>
-                        <input id="medical_id" name="medical_id" class="form-control" placeholder="555111222" type="number" style="border-radius:15px;">
+                        <label for="medical_id" class="col-form-label">Medical ID!</label>
+                        <input id="medical_id" name="medical_id" class="form-control" placeholder="555111222" type="text" style="border-radius:15px;">
                     </div>
                 </div>
                 <div class="row">
