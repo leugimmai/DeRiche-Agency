@@ -177,6 +177,8 @@ class IndividualsController extends Controller
         $first_name = $request->get('first_name');
         $last_name = $request->get('last_name');
         $medical_id = $request->get('medical_id');
+
+        
         // Use ternary operator to check whether we got anything for these fields
         // as it's not required on the HTML end.
         $seizure_status = empty($request->get('seizure')) ? false : true;

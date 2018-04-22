@@ -197,18 +197,32 @@
     </script>
     {% block javascripts %}{% endblock %}
     <footer>
-        Copyright &copy; 2017
-        <span class="badge badge-danger">Syed A.</span>
-        <span class="badge badge-danger">Samuel Seidel</span>
-        <span class="badge badge-warning">Ryan Garner</span>
-        <span class="badge badge-warning">Greg S.</span>
+        Copyright &copy; 2018
+        </br>
+        <div>
+            <span class="badge badge-success">Development Team 2017</span>
+            <span class="badge badge-dark">Syed A.</span>
+            <span class="badge badge-dark">Samuel Seidel</span>
+            <span class="badge badge-dark">Ryan Garner</span>
+            <span class="badge badge-dark">Greg S.</span>
+        </div>
+        <div>
+            <span class="badge badge-success">Development Team 2018</span>
+            <span class="badge badge-info">Paul Russell</span>
+            <span class="badge badge-info">Miguel Quintana</span>
+            <span class="badge badge-info">Henry Chia</span>
+            <br/>
+            <span class="badge badge-info">Ciro Amaral</span>
+            <span class="badge badge-info">Typer Rapp</span>
+            <span class="badge badge-info">Anderson Guse</span>
+            <span class="badge badge-info">Esai Dudoit</span>
+        </div>
 
-        <br/>
+        {# <br/> #}
 
         Development Support: <a href="mailto:samuel@samistine.com">samuel@samistine.com</a>
         <a href="tel:678-576-7222">678-576-7222</a><br/>
-        <a href="https://www.youtube.com/playlist?list=PLBu3cncVJ8THV69ApJscHmhCorQJpyUC1" target="_blank">Help -
-            YouTube Playlist</a>
+        
     </footer>
 </div>
 {#<div class="row">#}
@@ -228,5 +242,11 @@
         });
     });
 </script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+</script>
+
 </body>
 </html>

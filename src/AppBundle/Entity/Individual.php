@@ -26,7 +26,7 @@ class Individual implements JsonSerializable
      *
      * @var integer
      *
-     * @ORM\Column(name="medicalId", type="integer", unique=true)
+     * @ORM\Column(name="medicalId", type="integer", unique=false, nullable=true)
      */
     private $medicalId;
 
@@ -34,7 +34,7 @@ class Individual implements JsonSerializable
      * The first name of the individual.
      *
      * @var string
-     * @ORM\Column(name="firstName", type="string", length=255, nullable=false)
+     * @ORM\Column(name="firstName", type="string", length=255, nullable=true)
      */
     private $firstName;
 
