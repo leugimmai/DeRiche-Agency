@@ -65,6 +65,7 @@ class IndividualsController extends Controller
             ->find($id);
         // If there's no individual ID then we throw it away.
         if (!$individual) {
+            
             throw $this->createNotFoundException(
                 'No individual found for id ' . $id
             );

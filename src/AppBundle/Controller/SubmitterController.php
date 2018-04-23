@@ -103,8 +103,9 @@ class SubmitterController extends Controller
         // We then make sure that only one individual has that name.
         $count = count($individuals);
         if ($count === 0) {
+            $this->render('../not_found.html.twig');
             // If a individual was not found with that name.
-            throw $this->createNotFoundException('No individual found for ' . $individualName);
+            //throw $this->createNotFoundException('No individual found for ' . $individualName);
         }
         if ($count === 1) {
             // If a individual was found then we push them to the note creation page.
