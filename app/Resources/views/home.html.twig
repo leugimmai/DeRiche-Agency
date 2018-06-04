@@ -8,4 +8,19 @@
 
 
     <p>Thank you for logging in, use the sidebar for what you need!</p>
+
+    
+{% if is_granted('ROLE_WRITER') %}
+                    <h1>Writer</h1>
+                {% endif %}
+
+                {% if is_granted('ROLE_REVIEWER') %}
+                    <h1>Reviewer</h1>
+                {% endif %}
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <h1>Admin</h1>
+                {% endif %}
+                
 {% endblock %}
+

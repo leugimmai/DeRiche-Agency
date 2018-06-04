@@ -40,6 +40,7 @@
 
     </form>
     {% if note.state == constant('AWAITING_APPROVAL', note) %}
+        {% if is_granted('ROLE_REVIEWER') %}
         <a href="approve/{{ note.uuid }}">
             <button id="submitdb" type="button" class="btn btn-success">Submit to Database</button>
         </a>
@@ -53,6 +54,7 @@
                 <input name="correctsubmit" type="submit" class="btn btn-warning" value="Send Back for Correction">
             </div>
         </form>
+        {% endif %}
     {% endif %}
     <div class="card" style="margin-top: 15px;">
         <h3 class="card-header">Forms - Attached Forms Below</h3>

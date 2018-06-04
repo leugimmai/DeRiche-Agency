@@ -16,44 +16,59 @@
             box-sizing: border-box;
             padding: 10px;
             font-size: 16px;
+            border-radius: 20px;
         }
         .form-signin .form-control:focus {
             z-index: 2;
         }
         .form-signin input[type="email"] {
             margin-bottom: -1px;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
+            /*border-bottom-right-radius: 0;*/
+            /*border-bottom-left-radius: 0;*/
         }
         .form-signin input[type="password"] {
             margin-bottom: 20px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
+            /*border-top-left-radius: 0;*/
+            /*border-top-right-radius: 0;*/
+            border-radius: 20px;
+        }
+        .login-box {
+            margin: auto;
+            width: 22%;
+            background: white;
+            /*height: 275px;*/
+            border-radius: 15px;
+            box-shadow: 0 1px 0 rgba(12, 13, 14, 0.1), 0 1px 3px rgba(12, 13, 14, 0.1), 0 4px 20px rgba(12, 13, 14, 0.035), 0 1px 1px rgba(12, 13, 14, 0.025);
         }
     </style>
-    <link rel="stylesheet"
+        <link rel="stylesheet"
           href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 
-    <link href="{{ asset('style.css') }}" rel="stylesheet">
+    <link href="{{ asset('style-blue-theme.css') }}" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
 
-<div class="container-fluid" id="wrapper">
+<div>{#<div class="container-fluid" id="wrapper">#}
     <header>
-        <h1 id="logo" class="logo">DeRiche Agency, Inc.</h1>
+        <h1 id="logo" class="logo" style="color: whitesmoke">DeRiche Agency</h1>
     </header>
 
-    <div class="container">
+    <div class="login-box">
         <form action="{{ path('Login Form') }}" method="post" id="login" class="form-signin">
-            <header><h2 class="form-signin-heading text-center">Please sign in &nbsp;</h2></header>
+            <header><h5 class="form-signin-heading text-center">Member Login</h5></header>
             <hr/>
 
             {% if error %}
 
+                {#<style>#}
+                    {#.login-box{#}
+                        {#height: 340px;#}
+                    {#}#}
+                {#</style>#}
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -65,13 +80,13 @@
 
             <label for="username" class="sr-only">Username</label>
             <input class="form-control" name="_username" type="text"
-                   id="username" placeholder="Username" required autofocus>
+                   id="username" placeholder="Username" required autofocus><br>
 
             <label for="password" class="sr-only">Password</label>
             <input class="form-control" name="_password" type="password"
                    id="password" placeholder="Password" required>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-success btn-block form-control" type="submit">Sign in</button>
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <input type="hidden" name="_target_path" value="/"/>
@@ -81,12 +96,14 @@
     <br/>
     <br/>
 
-    <footer>
+    <footer style="color: white">
         Copyright &copy; 2017
         <span class="badge badge-danger">Syed A.</span>
+        <span class="badge badge-warning">Ciro Amaral</span>
         <span class="badge badge-danger">Samuel Seidel</span>
         <span class="badge badge-warning">Ryan Garner</span>
         <span class="badge badge-warning">Greg S.</span>
+
 
         <br/>
 

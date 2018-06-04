@@ -10,7 +10,7 @@
                 <canvas data-background="{{ asset('check.png') }}" class="canvas-bodyCheck"></canvas>
                 <input name="form_body_canvas" hidden/>
                 <br/>
-                <button type="button">Clear</button>
+                <button type="button" class="btn btn-outline-danger" id="buttons">Clear</button>
             </div>
         </div>
     </div>
@@ -20,35 +20,35 @@
     <div class="form-group row">
         <label for="type" class="col-md-3 col-form-label">If yes, which type?</label>
         <div class="col-md-8">
-            <textarea id="type" name="form_type" class="form-control" required></textarea>
+            <textarea id="type" name="form_type" class="form-control" style="border-radius: 15px;" required></textarea>
         </div>
     </div>
 
     <div class="form-group row">
         <label for="what" class="col-md-3 col-form-label">Explain what happened</label>
         <div class="col-md-8">
-            <textarea id="what" name="form_what" class="form-control" required></textarea>
+            <textarea id="what" name="form_what" class="form-control" style="border-radius: 15px;" required></textarea>
         </div>
     </div>
 
     <div class="form-group row">
         <label for="where" class="col-md-3 col-form-label">Where did it happen</label>
         <div class="col-md-8">
-            <textarea id="where" name="form_where" class="form-control" required></textarea>
+            <textarea id="where" name="form_where" class="form-control" style="border-radius: 15px;" required></textarea>
         </div>
     </div>
 
     <div class="form-group row">
         <label for="when" class="col-md-3 col-form-label">When did it happen</label>
         <div class="col-md-8">
-            <textarea id="when" name="form_when" class="form-control" required></textarea>
+            <textarea id="when" name="form_when" class="form-control" style="border-radius: 15px;" required></textarea>
         </div>
     </div>
 
     <div class="form-group row">
         <label for="why" class="col-md-3 col-form-label">Why did it happen</label>
         <div class="col-md-8">
-            <textarea id="why" name="form_why" class="form-control" required></textarea>
+            <textarea id="why" name="form_why" class="form-control" style="border-radius: 15px;" required></textarea>
         </div>
     </div>
 
@@ -57,7 +57,7 @@
             What did you do?
         </label>
         <div class="col-md-8">
-            <textarea id="firstAid" name="form_firstAid" class="form-control" required></textarea>
+            <textarea id="firstAid" name="form_firstAid" class="form-control" style="border-radius: 15px;" required></textarea>
             <small class="form-text text-muted">Describe First Aid administered and follow up</small>
         </div>
     </div>
@@ -67,12 +67,12 @@
     <div class="form-group row">
         <label for="recommend" class="col-md-3 col-form-label">Recommendations for follow up</label>
         <div class="col-md-8">
-            <textarea id="recommend" name="form_recommend" class="form-control"></textarea>
+            <textarea id="recommend" name="form_recommend" class="form-control" style="border-radius: 15px;"></textarea>
         </div>
     </div>
 
     <br><br>
-    <button onclick="myFunction()" type="button">Help</button>
+    <button onclick="myFunction()" type="button" class="btn btn-outline-info" style="border-radius: 15px;">Help</button>
 {% endblock %}
 
 {% block javascripts %}

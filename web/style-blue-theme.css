@@ -2,38 +2,54 @@ header, main, footer, aside {
     display: block;
 }
 
+html {
+    height: 100%;
+    /*background: linear-gradient(to top right, #5605ce 0%, #5605ce 10%, #3334ff 35%, #cc11ff 90%, #cc11ff 100%) no-repeat;*/
+    /*background-size: cover;*/
+}
 body {
+    background: #095fa0;
+    background: linear-gradient(to top right, #5605ce 0%, #5605ce 10%, #3334ff 35%, #cc11ff 90%, #cc11ff 100%) no-repeat;
+    background-size: cover;
     background: #000428;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #004e92, #000428);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #004e92, #000428); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(to right, #5605ce 0%, #5605ce 10%, #3334ff 35%, #cc11ff 90%, #cc11ff 100%);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #5605ce 0%, #5605ce 20%, #cc11ff 90%, #cc11ff 100%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     font-family: Verdana, Arial, sans-serif;
+    /*background: linear-gradient(to top right, #5605ce 0%, #5605ce 10%, #3314ff 35%, #cc11ff 90%, #cc11ff 100%) no-repeat;*/
+    /*background-size: cover;*/
 }
 
 #wrapper {
-    width: 1200px;
+    width: 95%;
     margin: auto;
+    margin-bottom: 15px;
     background-color: #ffffff;
     color: #330000;
-    box-shadow: 5px 5px 5px #0486FB;
+    /*box-shadow: 5px 5px 5px #0486FB;*/
+    border-radius: 20px;
+    min-height: 610px;
 }
 
 h1#logo {
-    color: #0486FB;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 75px;
-    font-weight: bold;
+    color: black;
+    /*color: #0486FB;*/
+    /*font-family: 'Helvetica Neue', sans-serif;*/
+    font-family: 'Verdana', sans-serif;
+    font-size: 65px;
+    /*font-size: 75px;*/
+    /*font-weight: bold;*/
     letter-spacing: -1px;
     line-height: 1;
     text-align: center;
     padding-bottom: 25px;
     padding-top: 25px;
-    box-shadow: 0 1px 0 rgba(12, 13, 14, 0.1), 0 1px 3px rgba(12, 13, 14, 0.1), 0 4px 20px rgba(12, 13, 14, 0.035), 0 1px 1px rgba(12, 13, 14, 0.025);
+    /*box-shadow: 0 1px 0 rgba(12, 13, 14, 0.1), 0 1px 3px rgba(12, 13, 14, 0.1), 0 4px 20px rgba(12, 13, 14, 0.035), 0 1px 1px rgba(12, 13, 14, 0.025);*/
     margin-top: 15px;
     margin-bottom: 25px;
 }
 
 h2 {
-    color: #007bff!important;
+    /*color: #007bff!important;*/
 }
 main {
     background-color: #FFFFCC;
@@ -68,14 +84,14 @@ canvas#signature, .signature {
     top: 180px; background: white; border: 2px solid;
 }
 
-.color-pick {
-    float: left;
-    width: 20px;
-    height: 20px;
-    margin: 5px;
-    border: 1px solid rgba(0, 0, 0, .2);
-    cursor: pointer;
-}
+/*.color-pick {*/
+    /*float: left;*/
+    /*width: 20px;*/
+    /*height: 20px;*/
+    /*margin: 5px;*/
+    /*border: 1px solid rgba(0, 0, 0, .2);*/
+    /*cursor: pointer;*/
+/*}*/
 
 #default-theme {
     background: #330000;
@@ -83,4 +99,9 @@ canvas#signature, .signature {
 
 #blue-theme {
     background: #004e92;
+}
+
+#buttons {
+    border-radius: 15px;
+    min-width: 40%;
 }

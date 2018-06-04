@@ -9,11 +9,11 @@
             <div class="form-group row">
                 <label class="col-md-3 col-form-label">Date & Time</label>
                 <div class="col-md-4">
-                    <input name="form_date" class="form-control" type="date" value="{{ date()|date("Y-m-d") }}">
+                    <input name="form_date" class="form-control" type="date" value="{{ date()|date("Y-m-d") }}" style="border-radius: 15px;">
                     <small class="form-text text-muted">Month/Day/Year</small>
                 </div>
                 <div class="col-md-4">
-                    <input name="form_time" id="form_time" class="form-control" type="time">
+                    <input name="form_time" id="form_time" class="form-control" type="time" style="border-radius: 15px;">
                     <small id="form_date" class="form-text text-muted">Time</small>
                 </div>
             </div>
@@ -21,15 +21,13 @@
             {% block form %}{% endblock %}
 
             <div class="drawing-block">
-                <canvas id="signature" data-background="{{ asset('sigImg.png') }}"></canvas>
+                <canvas id="signature" data-background="{{ asset('sigImg.png') }}" style="border-radius: 15px;"></canvas>
                 <input type="hidden" name="form_signature_canvas">
                 <br/>
-                <button type="button" class="signature-clear">Clear Signature</button>
+                <button type="button" class="signature-clear btn btn-outline-danger" style="border-radius: 15px;">Clear Signature</button>
             </div>
-
-            <br/>
-
-            <input id="Submit" type="submit" value="Submit"/>
+            <br>
+           <input id="Submit" type="submit" value="Submit" style="border-radius: 15px;" class="btn btn-outline-success"/>
         </form>
 
     </section>

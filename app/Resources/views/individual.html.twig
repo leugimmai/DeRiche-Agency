@@ -24,19 +24,19 @@
                                 <div class="form-group col-sm-6">
                                     <label for="first_name" class="col-form-label">First Name</label>
                                     <input id="first_name" name="first_name" class="form-control"
-                                           value="{{ individual.firstName }}" required>
+                                           value="{{ individual.firstName }}" style="border-radius:15px;" required>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label for="last_name" class="col-form-label">Last Name</label>
                                     <input id="last_name" name="last_name" class="form-control"
-                                           value="{{ individual.lastName }}" required>
+                                           value="{{ individual.lastName }}" style="border-radius:15px;" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-6">
                                     <label for="medical_id" class="col-form-label">Medical ID</label>
                                     <input id="medical_id" name="medical_id" class="form-control"
-                                           value="{{ individual.medicalid }}" required
+                                           value="{{ individual.medicalid }}" style="border-radius:15px;" required
                                            type="number">
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                                <button type="submit" class="btn btn-success btn-block" id="buttons">Submit</button>
                             </div>
                         </form>
                         <!-- End Add Individual Form -->
@@ -85,28 +85,28 @@
                         {# TODO: Still needs work, particularly in actually updating and ability to remove. #}
                         {% for objective in individual.objectives %}
                             <form action="objective/{{ objective.uuid }}/patch" class="form-group row card"
-                                  style="padding: 10px;">
+                                  style="padding: 10px;border-radius:15px;">
                                 <input type="hidden" value="{{ objective.uuid }}">
                                 <label for="example-text-input" class="col-form-label">Objective Name</label>
                                 <input class="form-control" type="text" id="objectiveName" name="objectiveName"
-                                       value="{{ objective.name }}">
+                                       value="{{ objective.name }}" style="border-radius:15px;">
                                 <label for="example-text-input" class="col-form-label">Goal Text</label>
                                 <textarea class="form-control" type="text" id="goalText"
-                                          name="goalText">{{ objective.goalText }}</textarea>
+                                          name="goalText" style="border-radius:15px;">{{ objective.goalText }}</textarea>
                                 <label for="example-text-input" class="col-form-label">Objective Text</label>
                                 <textarea class="form-control" type="text" id="objectiveText"
-                                          name="objectiveText">{{ objective.objectiveText }}</textarea>
+                                          name="objectiveText" style="border-radius:15px;">{{ objective.objectiveText }}</textarea>
                                 <label for="example-text-input" class="col-form-label">Guidance Notes</label>
                                 <textarea class="form-control" type="text" id="guidanceNotes"
-                                          name="guidanceNotes">{{ objective.guidanceNotes }}</textarea>
+                                          name="guidanceNotes" style="border-radius:15px;">{{ objective.guidanceNotes }}</textarea>
                                 <label for="example-text-input" class="col-form-label">Frequency</label>
                                 <div class="row">
                                     <div class="col-2" style="padding-right: 2px">
                                         <input class="form-control" type="number" id="freqAmount" name="freqAmount"
-                                               value="{{ objective.freqAmount }}">
+                                               value="{{ objective.freqAmount }}" style="border-radius:15px;">
                                     </div>
                                     <div class="col-6" style="padding-left: 2px">
-                                        <select class="form-control col-5" id="freqKind" name="freqKind">
+                                        <select class="form-control col-5" id="freqKind" name="freqKind" style="border-radius:15px;">
                                             <option {% if objective.freqKind == "/Day" %}selected="selected"{% endif %}>
                                                 /Day
                                             </option>
@@ -121,7 +121,7 @@
                                 </div>
                                 <div class="row" style="margin-top: 8px;">
                                     <div class="col-sm-6" style="padding-right: 2px">
-                                        <button type="submit" class="btn btn-block btn-success">Update Objective
+                                        <button type="submit" class="btn btn-block btn-success" id="buttons">Update Objective
                                         </button>
                                     </div>
                                     <div class="col-sm-6" style="padding-left: 2px">
@@ -129,16 +129,16 @@
                                                 data-confirm-title="Delete Objective"
                                                 data-confirm-message="Are you sure you wish to do that?"
                                                 data-bootstrap-color="danger"
-                                                data-link="objective/{{ objective.uuid }}/delete">Remove Objective
+                                                data-link="objective/{{ objective.uuid }}/delete" id="buttons">Remove Objective
                                         </button>
                                     </div>
                                 </div>
                             </form>
                         {% endfor %}
                         <form class="container form" id="objectives_form" action="objective/" method="POST">
-                            <button type="button" class="btn btn-default" id="addobjective">Add Objective</button>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                            <button type="button" class="btn btn-outline-info" id="addobjective" style="border-radius:15px;">Add Objective</button>
+                            <div class="text-center" style="margin-top: 15px;">
+                                <button type="submit" class="btn btn-success btn-block" id="buttons">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -155,7 +155,7 @@
                 </div>
                 <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="card-block">
-                        <table id="AllNotes" class="table table-striped table-bordered" cellspacing="0">
+                        <table id="AllNotes" class="table table-hover" cellspacing="0">
                             <thead>
                             <tr>
                                 {#<th>ID</th>#}

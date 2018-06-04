@@ -28,7 +28,7 @@
         <h3 class="card-header">Forms</h3>
         <div class="card-block row">
             <div class="dropdown col-6 col-sm-3">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="formbutton"
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="buttons"
                         data-toggle="dropdown" href="#" role="button"
                         aria-haspopup="true" aria-expanded="false" id="createform"
                         style="margin: 5px;">
@@ -67,7 +67,7 @@
             {{ form_widget(form.signature) }}
             {% if note.individual.seizure %}
                 <label style="margin-top:5px;" for="seizure" class="required">Seizures:</label>
-                <select id="seizure" name="seizure" required>
+                <select id="seizure" name="seizure" style="border-radius: 15px;" required>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                     <option value="possible">Possible</option>
@@ -91,11 +91,11 @@
                 <div style="border-style: solid;border-width: small; padding:5px;margin-bottom:3px;">
                     {% for objective in objectives["/Day"] %}
                         <p style="margin-bottom:2px;">{{ objective.name }} - {{ objective.goaltext }}</p>
-                        <button type="button" class="btn btn-primary"
+                        <button type="button" class="btn btn-primary" id="buttons"
                                 data-toggle="modal"
                                 data-target="#addGoalModal"
                                 data-goal-name="{{ objective.name }}"
-                                data-goal-text="{{ objective.objectiveText }}"
+                                data-goal-text="{{ objective.goalText }}"
                                 data-goal-guidance="{{ objective.guidanceNotes }}"
                                 data-goal-objective="{{ objective.objectiveText }}">Add to Note
                         </button>
@@ -112,7 +112,7 @@
                                 data-toggle="modal"
                                 data-target="#addGoalModal"
                                 data-goal-name="{{ objective.name }}"
-                                data-goal-text="{{ objective.objectiveText }}"
+                                data-goal-text="{{ objective.goalText }}"
                                 data-goal-guidance="{{ objective.guidanceNotes }}"
                                 data-goal-objective="{{ objective.objectiveText }}">Add to Note
                         </button>
@@ -129,7 +129,7 @@
                                 data-toggle="modal"
                                 data-target="#addGoalModal"
                                 data-goal-name="{{ objective.name }}"
-                                data-goal-text="{{ objective.objectiveText }}"
+                                data-goal-text="{{ objective.goalText }}"
                                 data-goal-guidance="{{ objective.guidanceNotes }}"
                                 data-goal-objective="{{ objective.objectiveText }}">Add to Note
                         </button>
@@ -141,11 +141,14 @@
             <img src="{{ asset('sigImg.png') }}" style="display: none;" />
             <canvas id="signature"></canvas>
             <br>
-            <input type="button" value="Clear Signature" style="top:180px; background:white; border:2px solid;"
+            <input type="button" class="btn btn-outline-danger" id="buttons" value="Clear Signature" style="top:180px; border:2px solid;"
                    onclick="Sclear()">
         </div>
     </div>
-    <button type="submit" id="submit" class="btn btn-primary">Submit for Review!</button>
+    <button type="submit" id="buttons" class="btn btn-success">Submit for Review!</button>
+    <div class="col-6 col-md-2" style="float: right">
+        <a href="../export/{{ note.uuid }}" download target="_blank"><button id="buttons" type="button" class="btn btn-info">Download</button></a>
+    </div>
     {{ form_end(form) }}
     <div class="modal fade" id="sigModal" tabindex="-1" role="dialog" aria-labelledby="sigModallabel"
          aria-hidden="true">
@@ -246,8 +249,11 @@
             var otextMessage = modal.find('#message-text').val();
 
             var box = $("#form_content");
-            box.val(box.val() + ' ' + '(' + oname + ') ' + otext); // Add Objective
-            box.val(box.val() + ' ' + otextMessage + ' '); // Add Staff's custom message
+
+            if(otextMessage.length >= 90){
+                box.val(box.val() + ' ' + '(' + oname + ') ' + otext); // Add Objective
+                box.val(box.val() + ' ' + otextMessage + ' '); // Add Staff's custom message
+            }
 
             $('#addGoalModal').modal('hide');
             modal.find('#message-text').val(''); // Clear the message so it's not on next goal.

@@ -7,26 +7,26 @@
         <div class="form-group col-sm-8">
             <label for="name" class="col-form-label">Generate an audit based on the individual:</label>
             <input id="name" name="name" class="form-control" placeholder="John Oliver" required=""
-                   style="margin-bottom:5px;">
-            <button type="submit" class="btn btn-primary btn-block">Get Notes</button>
+                   style="margin-bottom:5px; border-radius: 15px;">
+            <button type="submit" class="btn btn-info btn-block" id="buttons">Get Notes</button>
         </div>
     </form>
     <form action="dates" type="POST">
         <div class="form-group col-sm-8">
             <label for="name" class="col-form-label">Generate an audit based on date range:</label>
             <div class="input-daterange input-group" id="datepicker" style="margin-bottom:5px;">
-                <input type="text" class="input-sm form-control" name="start"/>
-                <span class="input-group-addon">to</span>
-                <input type="text" class="input-sm form-control" name="end"/>
+                <input type="text" class="input-sm form-control" name="start" style="border-radius: 15px;"/>
+                <span class="input-group-addon" style="border-radius: 15px;">to</span>
+                <input type="text" class="input-sm form-control" name="end" style="border-radius: 15px;"/>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Get Notes</button>
+            <button type="submit" class="btn btn-info btn-block" id="buttons">Get Notes</button>
             <p>Warning: This only shows submitted notes.</p>
         </div>
     </form>
     <div class="row" style="margin-top:20px;">
         <div class="col-md-8"></div>
         <div class="col-md-4">
-            <a href="db-backup" download target="_blank"><button type="backupdb" class="btn btn-primary btn-block">Backup Database</button></a>
+            <a href="db-backup" download target="_blank"><button type="backupdb" class="btn btn-primary btn-block btn-warning" id="buttons">Backup Database</button></a>
         </div>
     </div>
     {% if notes is defined %}
@@ -35,14 +35,14 @@
             {% if individual is defined %}
                 <h2>Individual: {{ individual }}</h2>
             {% endif %}
-            <table id="AllNotes" class="table table-striped table-bordered" cellspacing="0">
+            <table id="AllNotes" class="table table-hover table-condensed" cellspacing="0">
                 <thead>
                 <tr>
                     <th>Staff</th>
                     <th>Individual</th>
                     <th>Status</th>
                     <th>Date</th>
-                    <th>Export</th>
+                    <th>Download</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -58,7 +58,7 @@
                             <td>{{ note.submittedAt|default(date('0'))|date('F j, Y') }}</td>
                         {% endif %}
                         <td><a href="../../../reviewer/export/{{ note.uuid }}" download target="_blank">
-                                <button type="button" class="btn btn-primary">Export</button>
+                                <button type="button" class="btn btn-outline-success btn-sm" id="buttons">Download</button>
                             </a></td>
                         </td>
                     </tr>

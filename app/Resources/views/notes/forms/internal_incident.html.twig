@@ -115,7 +115,7 @@
             </tr>
         </table>
         <p>If "Other" in any section, please describe below:</p>
-        <textarea name="other" rows="2" cols="50"></textarea><br>
+        <textarea name="other" rows="2" cols="50" style="border-radius: 15px;"></textarea><br>
 
         <h3>Classification of Incident (Check any that apply)</h3>
         <input type="checkbox" name="sib" value="SIB">SIB<br>
@@ -127,7 +127,7 @@
         <input type="checkbox" name="moderate" value="Moderate">Moderate<br>
         <input type="checkbox" name="major" value="Major">Major<br>
 
-        <section title="Location of Injury" class="card" style="background-color: inherit">
+        <section title="Location of Injury" class="card" id="buttons" style="background-color: inherit">
             <div class="card-header">
                 <h3 class="text-center">Location of Injury</h3>
             </div>
@@ -142,7 +142,7 @@
                 <section title="Drawing Canvas" id="InjuryCanvas">
                     <canvas id="intinc"></canvas>
                     <br/>
-                    <button type="button" href="#" onclick='clearInjuryCanvas()' class="btn btn-block">Clear</button>
+                    <button type="button" id="buttons" href="#" onclick='clearInjuryCanvas()' class="btn btn-outline-danger">Clear</button>
                 </section>
 
                 <br/>
@@ -154,14 +154,14 @@
                         Please use first name or initials only:
                     </label>
                     <textarea id="injuryOthersInvolved" name="injuryOthersInvolved" class="form-control"
-                              rows="3"></textarea>
+                              rows="3" style="border-radius: 15px;"></textarea>
                 </div>
             </div>
         </section>
 
         <br/>
 
-        <section title="Description of Incident" class="card">
+        <section title="Description of Incident" class="card" id="buttons">
             <div class="card-header">
                 <h3 class="text-center">Description of Incident</h3>
             </div>
@@ -173,39 +173,39 @@
                         <br/>
                         <span class="small">Was anyone injured? Was first aid needed? Who? Describe.</span>
                     </label>
-                    <textarea id="injuries" name="injuries" class="form-control" rows="3"></textarea>
+                    <textarea id="injuries" name="injuries" class="form-control" rows="3" style="border-radius: 15px;"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="whatHappenedBefore">What happened right before the incident took place?</label>
                     <textarea id="whatHappenedBefore" name="whatHappenedBefore" class="form-control"
-                              rows="3"></textarea>
+                              rows="3" style="border-radius: 15px;"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="whatHappenedDuring">What happened during the incident?</label>
                     <textarea id="whatHappenedDuring" name="whatHappenedDuring" class="form-control"
-                              rows="3"></textarea>
+                              rows="3" style="border-radius: 15px;"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="whatHappenedAfter">What happened right after the incident?</label>
-                    <textarea id="whatHappenedAfter" name="whatHappenedAfter" class="form-control" rows="3"></textarea>
+                    <textarea id="whatHappenedAfter" name="whatHappenedAfter" class="form-control" rows="3" style="border-radius: 15px;"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="why">Why did the incident occur?</label>
-                    <textarea id="why" name="why" class="form-control" rows="3"></textarea>
+                    <textarea id="why" name="why" class="form-control" rows="3" style="border-radius: 15px;"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="whatDidYouDo">What did you do?</label>
-                    <textarea id="whatDidYouDo" name="whatDidYouDo" class="form-control" rows="3"></textarea>
+                    <textarea id="whatDidYouDo" name="whatDidYouDo" class="form-control" rows="3" style="border-radius: 15px;"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="preventativeSteps">How are you going to prevent a recurrence?</label>
-                    <textarea id="preventativeSteps" name="preventativeSteps" class="form-control" rows="3"></textarea>
+                    <textarea id="preventativeSteps" name="preventativeSteps" class="form-control" rows="3" style="border-radius: 15px;"></textarea>
                 </div>
             </div>
         </section>
@@ -213,24 +213,24 @@
         <p>**Report must be completed by employee within 24 hours of incident. If incident involves more than one
             participant, fill out separate report for each.**</p>
         <p>Name of person completing this Incident/Accident Form & Date:</p>
-        <input type="text" name="person" placeholder="Name"> <input type="date" name="date1">
+        <input type="text" name="person" placeholder="Name" style="border-radius: 15px;"> <input type="date" name="date1" style="border-radius: 15px;">
         <br/><br/>
 
         <h4>Review: Recommendations for Follow-Up (Admin Only)</h4>
-        <textarea name="recommend" rows="4" cols="50"></textarea><br>
+        <textarea name="recommend" rows="4" cols="50" style="border-radius: 15px;"></textarea><br>
         <p style="margin-bottom:0">Printed Name Person Reviewing Report:</p>
-        <input type="text" name="reviewing"><br/>
+        <input type="text" name="reviewing" style="border-radius: 15px;"><br/>
 
-        <canvas id="signature"></canvas>
+        <canvas id="signature" style="border-radius: 15px;"></canvas>
         <br>
-        <input type="button" value="Clear Signature" style="top:180px; background:white; border:2px solid;"
+        <input class="btn btn-outline-danger" type="button" value="Clear Signature" style="top:180px; border:2px solid; border-radius: 15px;"
                onclick="clearSignatureCanvas()">
         <br><br>
-        <input type="submit" onClick="save()" value="Submit"/> <input type="reset" value="Clear"/>
+        <input type="submit" onClick="save()" value="Submit Form" style="border-radius: 15px;" class="btn btn-outline-success"/> <input type="reset" value="Clear Form" style="border-radius: 15px;" class="btn btn-outline-danger"/>
         <input type="hidden" name="intData" id="intData" value="">
         <input type="hidden" name="sigData" id="sigData" value="">
     </form><br/>
-    <button onclick="helpFunction()">Help</button>
+    <button onclick="helpFunction()" class="btn btn-outline-info" style="border-radius: 15px;">Help</button>
 {% endblock %}
 
 {% block javascripts %}
